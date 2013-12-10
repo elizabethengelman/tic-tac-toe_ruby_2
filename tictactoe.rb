@@ -1,6 +1,7 @@
 class Board
   def initialize
   	@board = [" "," ", " ", " ", " ", " ", " ", " ", " "]
+    @turn = :human
   end
 
   def print_board
@@ -13,21 +14,34 @@ class Board
 
  def start_game
    puts "Welcome to tic-tac-toe! You're X's, let's get started!"
-   player_turn
+   9.times do 
+   	 if @turn == :human
+   	 	player_turn
+   	 else
+   	 	computer_turn
+   	 end
+   end
  end
 
  def player_turn
    puts "Where would you like to place your X?"
    @position = gets.chomp.to_i
    @mark = "X"
-   change_board
+   @turn = :computer
+   update_board
  end
 
- def change_board
+ def computer_turn
+ 	puts "The computer is playing!"
+ 	@turn = :human
+ end
+
+ def update_board
    @board[@position] = @mark
    print_board
    start_game
  end
+
 
 
 end
