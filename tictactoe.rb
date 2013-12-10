@@ -1,6 +1,6 @@
 class TicTacToe
   def initialize
-  	@board = [" "," ", " ", " ", " ", " ", " ", " ", " "]
+  	@board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     @turn = :human
     @turn_counter = 1
   end
@@ -27,10 +27,14 @@ class TicTacToe
     puts "Where would you like to place your X?"
     @position = gets.chomp.to_i
     @mark = "X"
-    @turn = :computer
-    @turn_counter += 1
-    puts "this is the turn counter #{@turn_counter}"
-    update_board
+    if valid_move?(@position)
+      @turn = :computer
+      @turn_counter += 1
+      puts "this is the turn counter #{@turn_counter}"
+      update_board
+    else
+      puts "Sorry, that is not a valid move, please try again."
+    end
     
   end
 
@@ -57,7 +61,10 @@ class TicTacToe
     print_board
     start_game
   end
-
+  
+  def valid_move?(index)
+  	@board[index] == " "
+  end
 end
 
 
