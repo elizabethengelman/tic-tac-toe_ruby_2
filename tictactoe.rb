@@ -1,3 +1,5 @@
+require 'pry'
+
 class TicTacToe
   def initialize
   	#originally had this as an array as well, and though i could change the value of elements of the board array, 
@@ -16,6 +18,13 @@ class TicTacToe
                        [2, 4, 6] 
                      ]  
   end
+  
+  def play_new_game
+    @board = {0 => " ", 1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " "}
+    @turn_counter = 1
+    print_board
+    start_game
+  end
 
   def print_board
     puts "#{@board[0]} | #{@board[1]} | #{@board[2]}"
@@ -27,14 +36,12 @@ class TicTacToe
 
   def start_game
     while @turn_counter < 10
+      game_check
       if @turn == :human
-        winner_check
         player_turn
       else 
-        winner_check
         computer_turn
       end
-
     end
   end
 
@@ -66,8 +73,8 @@ class TicTacToe
        end
     else
       @position = find_computer_move
-      p "The computer's next move is:"
-      p @position
+      # p "The computer's next move is:"
+      # p @position
     end
     @turn_counter += 1
     puts "this is the thurn counter #{@turn_counter}"
@@ -78,6 +85,7 @@ class TicTacToe
   def find_computer_move
   	# first, check to see if there is move where the computer would win
   	@possible_wins.each do |line|
+      # p "for O: #{times_in_line(line, "O")}"
   	  if times_in_line(line, "O") == 2
   	  	computer_move = empty_in_line(line)
         if computer_move
@@ -86,17 +94,22 @@ class TicTacToe
   	  end
   	end
 
-  	#if there is not, check to see if there is a move to block the opponent
+  	#if there is not and possibly ways to win, check to see if there is a move to block the opponent
   	@possible_wins.each do |line|
+      # p "for X: #{times_in_line(line, "X")}"
   	  if times_in_line(line, "X") == 2
+        # binding.pry
   	  	computer_move = empty_in_line(line)
         if computer_move
+          # binding.pry
+          # puts computer_move
           return computer_move
         end
   	  end
     end
 
     @possible_wins.each do |line|
+      puts "hi"
       if times_in_line(line, "O") == 1
         computer_move = empty_in_line(line)
         if computer_move
@@ -122,11 +135,9 @@ class TicTacToe
   def times_in_line(poss_winning_line, player_mark)
     times = 0
     poss_winning_line.each do |index|
-      if @board[index] == player_mark
-      	times += 1
-      	unless @board[index] == player_mark || @board[index] = " "
-      	  return 0
-      	end
+      times += 1 if @board[index] == player_mark
+      unless @board[index] == player_mark || @board[index] == " "
+        return 0
       end
     end
     times  
@@ -136,8 +147,7 @@ class TicTacToe
   	poss_winning_line.each do |index|
   	  if @board[index] == " "
   	  	return index
-  	  else
-        return
+  	  
       end
   	end
   end
@@ -148,19 +158,29 @@ class TicTacToe
   	@board[index] == " "
   end
 
-  def winner_check
+  def game_check
     @possible_wins.each do |line|
       if times_in_line(line, "X") == 3
         puts "Oops, it looks like you win!  That wasn't supposed to happen :|"
-        @turn_counter = 10
+        start_new_game
       end
     end
 
     @possible_wins.each do |line|
       if times_in_line(line, "O") == 3
         puts "The computer wins!"
-        @turn_counter = 10
+        start_new_game
       end
+    end
+  end
+
+  def start_new_game
+    puts "Game over! Would you like to start a new game?"
+    response = gets.chomp
+    if response == "yes"
+      play_new_game
+    else
+      abort("Thanks for playing!")
     end
   end
   
@@ -168,8 +188,6 @@ end
 
 
 my_board = TicTacToe.new
-puts my_board.print_board
-my_board.start_game
-# p my_board.find_computer_move
+my_board.play_new_game
 
 
