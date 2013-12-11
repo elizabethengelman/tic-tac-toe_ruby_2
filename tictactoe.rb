@@ -28,10 +28,13 @@ class TicTacToe
   def start_game
     while @turn_counter < 10
       if @turn == :human
+        winner_check
         player_turn
       else 
+        winner_check
         computer_turn
       end
+
     end
   end
 
@@ -63,7 +66,8 @@ class TicTacToe
        end
     else
       @position = find_computer_move
-      p "The computer's next move is #{@position}"
+      p "The computer's next move is:"
+      p @position
     end
     @turn_counter += 1
     puts "this is the thurn counter #{@turn_counter}"
@@ -75,20 +79,29 @@ class TicTacToe
   	# first, check to see if there is move where the computer would win
   	@possible_wins.each do |line|
   	  if times_in_line(line, "O") == 2
-  	  	return empty_in_line(line)
+  	  	computer_move = empty_in_line(line)
+        if computer_move
+          return computer_move
+        end
   	  end
   	end
 
   	#if there is not, check to see if there is a move to block the opponent
   	@possible_wins.each do |line|
-  	  if times_in_line(line, "X") == 2 && line.include?(" ")
-  	  	return empty_in_line(line)
+  	  if times_in_line(line, "X") == 2
+  	  	computer_move = empty_in_line(line)
+        if computer_move
+          return computer_move
+        end
   	  end
     end
 
     @possible_wins.each do |line|
       if times_in_line(line, "O") == 1
-        return empty_in_line(line)
+        computer_move = empty_in_line(line)
+        if computer_move
+          return computer_move
+        end
       end
     end
     
@@ -123,7 +136,9 @@ class TicTacToe
   	poss_winning_line.each do |index|
   	  if @board[index] == " "
   	  	return index
-  	  end
+  	  else
+        return
+      end
   	end
   end
 
@@ -131,6 +146,22 @@ class TicTacToe
   #checked after changing @board to an array
   def valid_move?(index)
   	@board[index] == " "
+  end
+
+  def winner_check
+    @possible_wins.each do |line|
+      if times_in_line(line, "X") == 3
+        puts "Oops, it looks like you win!  That wasn't supposed to happen :|"
+        @turn_counter = 10
+      end
+    end
+
+    @possible_wins.each do |line|
+      if times_in_line(line, "O") == 3
+        puts "The computer wins!"
+        @turn_counter = 10
+      end
+    end
   end
   
 end
