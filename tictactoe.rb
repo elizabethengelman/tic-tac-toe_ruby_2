@@ -1,7 +1,5 @@
 class TicTacToe
   def initialize
-  	#originally had this as an array as well, and though i could change the value of elements of the board array, 
-  	#i had trouble persisting that data into the possible_wins array, which is dependent on the @board array info - different object ids
     @turn = :human
     @turn_counter = 1
     @possible_wins = [ [1, 2, 3], 
@@ -48,15 +46,12 @@ class TicTacToe
     if valid_move?(@position)
       @turn = :computer
       @turn_counter += 1
-      puts "this is the turn counter #{@turn_counter}"
       update_board
     else
       puts "Sorry, that is not a valid move, please try again."
     end
   end
 
-   
-  
   def computer_turn
   	puts "The computer is playing!"
   	@turn = :human
@@ -69,19 +64,13 @@ class TicTacToe
        end
     else
       @position = find_computer_move
-      # p "The computer's next move is:"
-      # p @position
     end
     @turn_counter += 1
-    puts "this is the thurn counter #{@turn_counter}"
     update_board
   end
 
-
   def find_computer_move
-  	# first, check to see if there is move where the computer would win
   	@possible_wins.each do |line|
-      # p "for O: #{times_in_line(line, "O")}"
   	  if times_in_line(line, "O") == 2
   	  	computer_move = empty_in_line(line)
         if computer_move
@@ -90,15 +79,10 @@ class TicTacToe
   	  end
   	end
 
-  	#if there is not and possibly ways to win, check to see if there is a move to block the opponent
   	@possible_wins.each do |line|
-      # p "for X: #{times_in_line(line, "X")}"
   	  if times_in_line(line, "X") == 2
-        # binding.pry
   	  	computer_move = empty_in_line(line)
         if computer_move
-          # binding.pry
-          # puts computer_move
           return computer_move
         end
   	  end
@@ -147,8 +131,6 @@ class TicTacToe
   	end
   end
 
-
-  #checked after changing @board to an array
   def valid_move?(index)
   	@board[index] == " "
   end
@@ -185,7 +167,6 @@ class TicTacToe
   end
   
 end
-
 
 my_board = TicTacToe.new
 my_board.play_new_game
