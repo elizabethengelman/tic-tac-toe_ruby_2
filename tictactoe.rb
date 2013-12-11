@@ -35,7 +35,7 @@ class TicTacToe
   end
 
   def start_game
-    while @turn_counter < 10
+    until @turn_counter == 10
       game_check
       if @turn == :human
         player_turn
@@ -171,6 +171,11 @@ class TicTacToe
         puts "The computer wins!"
         start_new_game
       end
+    end
+
+    if @turn_counter == 9
+      puts "You've tied!"
+      start_new_game
     end
   end
 
