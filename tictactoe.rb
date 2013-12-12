@@ -17,7 +17,6 @@ class TicTacToe
     @board = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
     puts "Welcome to tic-tac-toe! The board is numbered as follows."
     print_example_board
-    puts " "
     @turn_counter = 1
     print_board
     play_game
@@ -37,6 +36,9 @@ class TicTacToe
     puts "4 | 5 | 6"
     puts "_________"
     puts "7 | 8 | 9"
+    puts ""
+    puts "---------------"
+    puts ""
   end
 
   def play_game
@@ -116,12 +118,6 @@ class TicTacToe
     end
   end
   
-  def update_board
-    @board[@position] = @mark
-    print_board
-    play_game
-  end
-
   def times_in_line(poss_winning_line, player_mark)
     times = 0
     poss_winning_line.each do |index|
@@ -150,24 +146,30 @@ class TicTacToe
     @possible_wins.each do |line|
       if times_in_line(line, "X") == 3
         puts "Oops, it looks like you win!  That wasn't supposed to happen :|"
-        start_new_game
+        game_over
       end
     end
 
     @possible_wins.each do |line|
       if times_in_line(line, "O") == 3
         puts "The computer wins!"
-        start_new_game
+        game_over
       end
     end
 
     if @turn_counter == 9
       puts "You've tied!"
-      start_new_game
+      game_over
     end
   end
 
-  def start_new_game
+  def update_board
+    @board[@position] = @mark
+    print_board
+    play_game
+  end
+
+  def game_over
     puts "Game over! Would you like to start a new game?"
     response = gets.chomp
     if response == "yes" || response == "y"
