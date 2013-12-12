@@ -3,9 +3,9 @@ Tic Tac Toe
 
 This is a Tic Tac Toe game that can be played in the command line. This game is programmed so that the computer will never lose, even though the user is given the advantage of starting first each game. The user is always "X", and the computer is always "O". The user is able to put in a number from 1 - 9 to chose which position they'd like their "X" to go. The board is numbered as follows:
 
-<u>1 | 2 | 3</u>
-<u>4 | 5 | 6</u>
-<u>7 | 8 | 9</u>
+<u>1 | 2 | 3</u><br>
+<u>4 | 5 | 6</u><br>
+<u>7 | 8 | 9</u><br>
 
 To install this game, clone this git repo and.
 
