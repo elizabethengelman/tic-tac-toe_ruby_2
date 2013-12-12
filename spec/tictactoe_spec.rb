@@ -10,11 +10,5 @@ describe TicTacToe do
         @tictactoe.should be_an_instance_of TicTacToe
       end
     end
-
-    describe "#print_board" do
-      it "prints each row of the board in the terminal" do
-         @tictactoe.print_board 
-      end
-    end
 	
 end
