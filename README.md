@@ -5,7 +5,6 @@ This is a Tic Tac Toe game that can be played in the command line. This game is 
 
 
 1 | 2 | 3
---- | --- | ---
 4 | 5 | 6
 7 | 8 | 9
 
