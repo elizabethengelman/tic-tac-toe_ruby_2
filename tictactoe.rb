@@ -179,7 +179,7 @@ class TicTacToe
   
 end
 
-my_board = TicTacToe.new
-my_board.play_new_game
+# my_board = TicTacToe.new
+# my_board.play_new_game
 
 
