@@ -17,7 +17,7 @@ class TicTacToe
     @board = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
     @turn_counter = 1
     print_board
-    start_game
+    play_game
   end
 
   def print_board
@@ -28,7 +28,7 @@ class TicTacToe
     puts "#{@board[7]} | #{@board[8]} | #{@board[9]}"
   end
 
-  def start_game
+  def play_game
     until @turn_counter == 10
       game_check
       if @turn == :human
@@ -89,7 +89,6 @@ class TicTacToe
     end
 
     @possible_wins.each do |line|
-      puts "hi"
       if times_in_line(line, "O") == 1
         computer_move = empty_in_line(line)
         if computer_move
@@ -108,7 +107,7 @@ class TicTacToe
   def update_board
     @board[@position] = @mark
     print_board
-    start_game
+    play_game
   end
 
   def times_in_line(poss_winning_line, player_mark)
