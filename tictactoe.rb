@@ -15,6 +15,9 @@ class TicTacToe
   
   def play_new_game
     @board = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
+    puts "Welcome to tic-tac-toe! The board is numbered as follows."
+    print_example_board
+    puts " "
     @turn_counter = 1
     print_board
     play_game
@@ -26,6 +29,14 @@ class TicTacToe
     puts "#{@board[4]} | #{@board[5]} | #{@board[6]}"
     puts "_________"
     puts "#{@board[7]} | #{@board[8]} | #{@board[9]}"
+  end
+
+ def print_example_board
+    puts "1 | 2 | 3"
+    puts "_________"
+    puts "4 | 5 | 6"
+    puts "_________"
+    puts "7 | 8 | 9"
   end
 
   def play_game
@@ -53,7 +64,8 @@ class TicTacToe
   end
 
   def computer_turn
-  	puts "The computer is playing!"
+  	puts "The computer is playing..."
+    sleep(0.5)
   	@turn = :human
   	@mark = "O"
   	if @turn_counter == 2
@@ -158,7 +170,7 @@ class TicTacToe
   def start_new_game
     puts "Game over! Would you like to start a new game?"
     response = gets.chomp
-    if response == "yes"
+    if response == "yes" || response == "y"
       play_new_game
     else
       abort("Thanks for playing!")

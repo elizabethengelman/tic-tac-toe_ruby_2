@@ -15,5 +15,6 @@ describe TicTacToe do
       it "prints each row of the board in the terminal" do
          @tictactoe.print_board 
       end
+    end
 	
 end
