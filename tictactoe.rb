@@ -14,31 +14,12 @@ class TicTacToe
   end
   
   def play_new_game
-    @board = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
+    @ttt_board = Board.new
     puts "Welcome to tic-tac-toe! The board is numbered as follows."
-    print_example_board
+    @ttt_board.print_example_board
     @turn_counter = 1
-    print_board
+    @ttt_board.print_board
     play_game
-  end
-
-  def print_board
-    puts "#{@board[1]} | #{@board[2]} | #{@board[3]}"
-    puts "_________"
-    puts "#{@board[4]} | #{@board[5]} | #{@board[6]}"
-    puts "_________"
-    puts "#{@board[7]} | #{@board[8]} | #{@board[9]}"
-  end
-
- def print_example_board
-    puts "1 | 2 | 3"
-    puts "_________"
-    puts "4 | 5 | 6"
-    puts "_________"
-    puts "7 | 8 | 9"
-    puts ""
-    puts "---------------"
-    puts ""
   end
 
   def play_game
@@ -71,7 +52,7 @@ class TicTacToe
   	@turn = :human
   	@mark = "O"
   	if @turn_counter == 2
-  	  if @board[5] == " "
+  	  if @ttt_board.board[5] == " "
   	  	@position = 5
        else
        	@position = 3
@@ -111,7 +92,7 @@ class TicTacToe
       end
     end
     
-    @board.each do |key, value|
+    @ttt_board.board.each do |key, value|
       if value == " "
         return key
       end
@@ -121,8 +102,8 @@ class TicTacToe
   def times_in_line(poss_winning_line, player_mark)
     times = 0
     poss_winning_line.each do |index|
-      times += 1 if @board[index] == player_mark
-      unless @board[index] == player_mark || @board[index] == " "
+      times += 1 if @ttt_board.board[index] == player_mark
+      unless @ttt_board.board[index] == player_mark || @ttt_board.board[index] == " "
         return 0
       end
     end
@@ -131,7 +112,7 @@ class TicTacToe
 
   def empty_in_line(poss_winning_line)
   	poss_winning_line.each do |index|
-  	  if @board[index] == " "
+  	  if @ttt_board.board[index] == " "
   	  	return index
   	  
       end
@@ -139,7 +120,7 @@ class TicTacToe
   end
 
   def valid_move?(index)
-  	@board[index] == " "
+  	@ttt_board.board[index] == " "
   end
 
   def game_check
@@ -164,8 +145,8 @@ class TicTacToe
   end
 
   def update_board
-    @board[@position] = @mark
-    print_board
+    @ttt_board.board[@position] = @mark
+    @ttt_board.print_board
     play_game
   end
 
