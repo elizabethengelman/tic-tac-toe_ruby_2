@@ -18,6 +18,7 @@ class TicTacToe
     puts "Welcome to tic-tac-toe! The board is numbered as follows."
     @ttt_board.print_example_board
     @turn_counter = 1
+    @turn = :human
     @ttt_board.print_board
     play_game
   end
@@ -138,7 +139,7 @@ class TicTacToe
       end
     end
 
-    if @turn_counter == 9
+    if @turn_counter == 10
       puts "You've tied!"
       game_over
     end
