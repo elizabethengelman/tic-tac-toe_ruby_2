@@ -1,4 +1,4 @@
-class User_Play
+class Play
 	def initialize
 		@user = UserInterface.new
 	end

@@ -18,20 +18,21 @@ class Game
       else 
         @board.update_board(computer_turn, "O")
       end
-      change_turn
       @user.print_out(@board.print_board)
+      change_turn
       game_check
     end
   end
 
   def player_turn
+    puts Kernel.caller.join("\n")
     @user.print_out("Where would you like to place your X?")
-    position = gets.chomp.to_i
+    position = @user.get_input.to_i
     if valid_move?(position)
       position
     else
       @user.print_out("Sorry, that is not a valid move, please try again.")
-      player_turn
+      # player_turn
     end
   end
 
@@ -58,48 +59,17 @@ class Game
     end
   end
 
-  # def find_computer_move
-  # 	@board.possible_wins.each do |line|
-  # 	  if times_in_line(line, "O") == 2
-  # 	  	computer_move = empty_in_line(line)
-  #       if computer_move
-  #         return computer_move
-  #       end
-  # 	  end
-  # 	end
-
-  # 	@board.possible_wins.each do |line|
-  # 	  if times_in_line(line, "X") == 2
-  # 	  	computer_move = empty_in_line(line)
-  #       if computer_move
-  #         return computer_move
-  #       end
-  # 	  end
-  #   end
-
-  #   @board.possible_wins.each do |line|
-  #     if times_in_line(line, "O") == 1
-  #       computer_move = empty_in_line(line)
-  #       if computer_move
-  #         return computer_move
-  #       end
-  #     end
-  #   end
-  # end
-
   def find_computer_move
     @board.possible_wins.each do |line|
       if times_in_line(line, "O") == 2
         return empty_in_line(line) if empty_in_line(line)
       end
     end
-
     @board.possible_wins.each do |line|
       if times_in_line(line, "X") == 2
         return empty_in_line(line) if empty_in_line(line)
       end
     end
-
     @board.possible_wins.each do |line|
       if times_in_line(line, "O") == 1
         return empty_in_line(line) if empty_in_line(line)

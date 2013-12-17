@@ -1,10 +1,7 @@
-require_relative 'game'
-require_relative 'board'
-require_relative 'user_interface'
-require_relative 'play'
+require_relative 'lib/game'
+require_relative 'lib/board'
+require_relative 'lib/user_interface'
+require_relative 'lib/play'
 
-# new_game = Game.new
-# new_game.play_game
-
-new_play = User_Play.new
+new_play = Play.new
 new_play.start_playing
