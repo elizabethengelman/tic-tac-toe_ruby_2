@@ -1,14 +1,15 @@
 require 'spec_helper'
 
-describe TicTacToe do 
-	before :all do 
-		@tictactoe = TicTacToe.new 
+describe Game do
+	before :all do
+		@board = Board.new
+		@user = UserInterface.new
+		@game = Game.new(@board, @user)
 	end
 
 	describe "#new" do
-      it "returns a new TicTacToe object " do
-        @tictactoe.should be_an_instance_of TicTacToe
-      end
-    end
-	
+		it "should create a game object" do
+			@game.should be_an_instance_of Game 
+	  end
+	end
 end

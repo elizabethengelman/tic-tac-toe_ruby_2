@@ -1,4 +1,5 @@
-require_relative '../board'
-require_relative '../user'
-require_relative '../play'
-require_relative '../game'
+require 'board'
+require 'game'
+require 'user_interface'
+require 'play'
+
