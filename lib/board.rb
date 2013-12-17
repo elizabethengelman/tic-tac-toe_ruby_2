@@ -1,9 +1,10 @@
 class Board
-  # SPACE = " "
+  SPACE = " "
 	attr_accessor :board
 	attr_reader :possible_wins
+  
 	def initialize
-		@board = {1 => " ", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "} 
+		@board = {1 => SPACE, 2 => SPACE, 3 => SPACE, 4 => SPACE, 5 => SPACE, 6 => SPACE, 7 => SPACE, 8 => SPACE, 9 => SPACE} 
 		@possible_wins = [ [1, 2, 3], 
                        [4, 5, 6], 
                        [7, 8, 9], 
@@ -15,7 +16,7 @@ class Board
                      ] 
   end	
 
-   def print_board
+  def print_board
     [
       "#{@board[1]} | #{@board[2]} | #{@board[3]}",
       "_________",

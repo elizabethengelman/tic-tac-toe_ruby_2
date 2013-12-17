@@ -28,12 +28,11 @@ class Game
     puts Kernel.caller.join("\n")
     @user.print_out("Where would you like to place your X?")
     position = @user.get_input.to_i
-    if valid_move?(position)
-      position
-    else
+    until valid_move?(position)
       @user.print_out("Sorry, that is not a valid move, please try again.")
-      # player_turn
+      position = @user.get_input.to_i
     end
+    position
   end
 
   def computer_turn
@@ -60,6 +59,10 @@ class Game
   end
 
   def find_computer_move
+    #I had inteded to break this out into 3 methods, however I was not sure how best to accomplish
+    #this, since each method would need to return the position to win or block, which would
+    #kick it back into the find_computer_move method, which would also require a return. I am
+    #not sure if that would be easier to understand or not.
     @board.possible_wins.each do |line|
       if times_in_line(line, "O") == 2
         return empty_in_line(line) if empty_in_line(line)
