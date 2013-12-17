@@ -8,7 +8,6 @@ class Game
   end
 
   def play_game
-    # puts Kernel.caller.join("\n")
     @user.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
     @user.print_out(@board.print_example_board)
     @user.print_out(@board.print_board)
@@ -16,14 +15,12 @@ class Game
     while @turn_counter < 10
       if @turn == :human
         @board.update_board(player_turn, "X")
-        change_turn
       else 
         @board.update_board(computer_turn, "O")
-        change_turn
       end
+      change_turn
       @user.print_out(@board.print_board)
       game_check
-      puts "this is the turn counter: #{@turn_counter}"
     end
   end
 
@@ -61,41 +58,55 @@ class Game
     end
   end
 
-  def find_computer_move
-  	@board.possible_wins.each do |line|
-  	  if times_in_line(line, "O") == 2
-  	  	computer_move = empty_in_line(line)
-        if computer_move
-          return computer_move
-        end
-  	  end
-  	end
+  # def find_computer_move
+  # 	@board.possible_wins.each do |line|
+  # 	  if times_in_line(line, "O") == 2
+  # 	  	computer_move = empty_in_line(line)
+  #       if computer_move
+  #         return computer_move
+  #       end
+  # 	  end
+  # 	end
 
-  	@board.possible_wins.each do |line|
-  	  if times_in_line(line, "X") == 2
-  	  	computer_move = empty_in_line(line)
-        if computer_move
-          return computer_move
-        end
-  	  end
+  # 	@board.possible_wins.each do |line|
+  # 	  if times_in_line(line, "X") == 2
+  # 	  	computer_move = empty_in_line(line)
+  #       if computer_move
+  #         return computer_move
+  #       end
+  # 	  end
+  #   end
+
+  #   @board.possible_wins.each do |line|
+  #     if times_in_line(line, "O") == 1
+  #       computer_move = empty_in_line(line)
+  #       if computer_move
+  #         return computer_move
+  #       end
+  #     end
+  #   end
+  # end
+
+  def find_computer_move
+    @board.possible_wins.each do |line|
+      if times_in_line(line, "O") == 2
+        return empty_in_line(line) if empty_in_line(line)
+      end
+    end
+
+    @board.possible_wins.each do |line|
+      if times_in_line(line, "X") == 2
+        return empty_in_line(line) if empty_in_line(line)
+      end
     end
 
     @board.possible_wins.each do |line|
       if times_in_line(line, "O") == 1
-        computer_move = empty_in_line(line)
-        if computer_move
-          return computer_move
-        end
-      end
-    end
-    
-    @board.board.each do |key, value|
-      if value == " "
-        return key
+        return empty_in_line(line) if empty_in_line(line)
       end
     end
   end
-  
+
   def times_in_line(poss_winning_line, player_mark)
     times = 0
     poss_winning_line.each do |index|
@@ -124,23 +135,17 @@ class Game
       if times_in_line(line, "X") == 3
         @user.print_out("Oops, it looks like you win!  That wasn't supposed to happen :|")
         game_over
-      end
-    end
-
-    @board.possible_wins.each do |line|
-      if times_in_line(line, "O") == 3
+      elsif times_in_line(line, "O") == 3
         @user.print_out("The computer wins!")
         game_over
+      elsif @turn_counter == 10
+        @user.print_out("You've tied!")
+        game_over
       end
-    end
-
-    if @turn_counter == 10
-      @user.print_out("You've tied!")
-      game_over
     end
   end
 
   def game_over
-    @turn_counter = 10
+    @turn_counter = 11
   end 
 end
