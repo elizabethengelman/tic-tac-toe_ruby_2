@@ -1,5 +1,6 @@
 class Game
   SPACE = " "
+  attr_reader :turn, :turn_counter
   def initialize(board_object, user_object)
     @board = board_object
     @user = user_object
