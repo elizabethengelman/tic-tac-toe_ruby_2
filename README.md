@@ -24,4 +24,3 @@ ruby play_ttt.rb
 ```
 Have fun!
 
-test
