@@ -10,10 +10,10 @@ class Play
 	  response = "yes"
 	  until response != "yes"
     	@board = Board.new
-      @game.reset(@board)
-			@game.play_game
-			@user.print_out("Game over! Would you like to start a new game?")
-			response = @user.get_input
+      	@game.reset(@board)
+		@game.play_game
+		@user.print_out("Game over! Would you like to start a new game?")
+		response = @user.get_input
 	  end
 	  @user.print_out("Thanks for playing! Goodbye!")
 	end
