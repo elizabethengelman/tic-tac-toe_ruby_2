@@ -1,18 +1,22 @@
 class Game
   SPACE = " "
-  attr_reader :turn, :turn_counter
-  def initialize(board_object, user_object)
-    @board = board_object
+  attr_reader :turn_counter, :turn
+  def initialize(user_object)
     @user = user_object
-    @turn = :human
-    @turn_counter = 1    
+  end
+
+  def reset(board_object)
+    @board = board_object
+    @turn_counter = 1   
+    @turn = :human 
   end
 
   def play_game
     @user.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
     @user.print_out(@board.print_example_board)
     @user.print_out(@board.print_board)
-
+    who_goes_first?
+    # x_or_o? - add this back in once I have testing?
     while @turn_counter < 10
       if @turn == :human
         @board.update_board(player_turn, "X")
@@ -24,7 +28,41 @@ class Game
       game_check
     end
   end
+  
+  def who_goes_first?
+    input = ""
+    until input == "first" || input == "second"
+      @user.print_out("Would you like to go first or second? Please enter 'first' or 'second'.")
+      input = @user.get_input
+      if input == "first"
+        user_first
+      elsif input == "second"
+        user_second
+      end
+    end
+  end
 
+  # def x_or_o?
+  #   input = ""
+  #   until input == "X" || input == "O"
+  #     @user.print_out("Would you like to be X's or O's?")
+  #     input = @user.get_input
+  #     if input == "X"
+  #       puts "X!"
+  #     elsif input == "O"
+  #       puts "o!"
+  #     end
+  #   end
+  # end
+
+  def user_first
+    @turn = :human
+  end
+
+  def user_second
+    @turn = :computer
+  end
+  
   def player_turn
     @user.print_out("Where would you like to place your X?")
     position = @user.get_input.to_i
@@ -36,14 +74,10 @@ class Game
   end
 
   def computer_turn
-  	@user.print_out("The computer is playing...")
+    @user.print_out("The computer is playing...")
     sleep(0.5)
-  	if @turn_counter == 2
-  	  if @board.board[5] == SPACE
-  	  	return 5
-       else
-       	return 3
-       end
+    if @board.board[5] == SPACE
+      return 5
     else
       find_computer_move
     end
@@ -78,6 +112,11 @@ class Game
         return empty_in_line(line) if empty_in_line(line)
       end
     end
+    @board.board.each do |key, value| 
+      if value == SPACE 
+        return key
+      end
+    end
   end
 
   def times_in_line(poss_winning_line, player_mark)
@@ -92,15 +131,15 @@ class Game
   end
 
   def empty_in_line(poss_winning_line)
-  	poss_winning_line.each do |index|
-  	  if @board.board[index] == SPACE
-  	  	return index
+    poss_winning_line.each do |index|
+      if @board.board[index] == SPACE
+        return index
       end
-  	end
+    end
   end
 
   def valid_move?(index)
-  	@board.board[index] == SPACE
+    @board.board[index] == SPACE
   end
 
   def game_check
