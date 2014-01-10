@@ -24,3 +24,5 @@ ruby play_ttt.rb
 ```
 Have fun!
 
+NOTE: This is my second attempt at TTT, and includes testing with Rspec.
+
