@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 class MockUser
-	attr_reader :print_out_called, :print_out_counter
+	attr_reader :print_out_called, :print_out_counter, :print_out_array
 	attr_accessor :input
 	def initialize
 		@get_input_counter = 0
 		@print_out_counter = 0
+		@print_out_array = []
 	end
 
 	def print_out(output)
 		@print_out_counter += 1
-		@print_out_called = output
+		@print_out_array << output
 	end
 
 	def get_input
@@ -65,15 +66,20 @@ describe Play do
 			@mock_game.play_game_called_counter.should equal 2
 		end
 
-		it "should call the print_out method" do
+		it "should print out a message asking if the user would like to play again" do
 			@play.start_playing
-			@mock_user.print_out_counter.should eq 3 
-			# @mock_user.print_out_called.should eq "Game over! Would you like to start a new game?" how do i test that is prints out the right thing?
+			@mock_user.print_out_array[0].should eq "Game over! Would you like to start a new game?"
+			@mock_user.print_out_array[1].should eq "Game over! Would you like to start a new game?"
 		end
 
 		it "should print out a goodbye message after the loop" do
 			@play.start_playing
-			@mock_user.print_out_called.should eq "Thanks for playing! Goodbye!"
+			@mock_user.print_out_array[2].should eq "Thanks for playing! Goodbye!"
+		end
+
+		it "should call the print_out method 3 times" do
+			@play.start_playing
+			@mock_user.print_out_counter.should eq 3 
 		end
 	end
 end

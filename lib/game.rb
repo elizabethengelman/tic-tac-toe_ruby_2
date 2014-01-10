@@ -1,13 +1,14 @@
 class Game
   SPACE = " "
   attr_reader :turn_counter, :turn
+  
   def initialize(user_object)
     @user = user_object
   end
 
   def reset(board_object)
     @board = board_object
-    @turn_counter = 1   
+    @turn_counter = 0   
     @turn = :human 
   end
 
@@ -15,8 +16,7 @@ class Game
     @user.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
     @user.print_out(@board.print_example_board)
     @user.print_out(@board.print_board)
-    who_goes_first?
-    # x_or_o? - add this back in once I have testing?
+    # who_goes_first?
     while @turn_counter < 10
       if @turn == :human
         @board.update_board(player_turn, "X")
@@ -29,18 +29,18 @@ class Game
     end
   end
   
-  def who_goes_first?
-    input = ""
-    until input == "first" || input == "second"
-      @user.print_out("Would you like to go first or second? Please enter 'first' or 'second'.")
-      input = @user.get_input
-      if input == "first"
-        user_first
-      elsif input == "second"
-        user_second
-      end
-    end
-  end
+  # def who_goes_first?
+  #   input = ""
+  #   until input == "first" || input == "second"
+  #     @user.print_out("Would you like to go first or second? Please enter 'first' or 'second'.")
+  #     input = @user.get_input
+  #     if input == "first"
+  #       user_first
+  #     elsif input == "second"
+  #       user_second
+  #     end
+  #   end
+  # end
 
   # def x_or_o?
   #   input = ""
@@ -55,13 +55,13 @@ class Game
   #   end
   # end
 
-  def user_first
-    @turn = :human
-  end
+  # def user_first
+  #   @turn = :human
+  # end
 
-  def user_second
-    @turn = :computer
-  end
+  # def user_second
+  #   @turn = :computer
+  # end
   
   def player_turn
     @user.print_out("Where would you like to place your X?")
