@@ -35,10 +35,24 @@ class MockGame
 		@reset_called = true
 	end
 
-	def play_game
-		@play_game_called = true
-		@play_game_called_counter += 1
+	def print_welcome
 	end
+
+	def in_progress?
+	end
+
+	def take_a_turn
+	end
+
+	def print_board
+	end
+
+	def change_turn
+	end
+
+	def check_for_winner
+	end
+
 end
 
 describe Play do
@@ -56,19 +70,13 @@ describe Play do
     end
 
     it "should call the play_game method on the @game object" do
+      @play.should_receive(:play_game).twice
       @play.start_playing
-    	@mock_game.play_game_called.should equal true
     end
-
-		it "should not repeat the loop if the user input is 'no'" do
-			@play.start_playing
-			@mock_game.play_game_called_counter.should equal 2
-		end
 
 		it "should print out a message asking if the user would like to play again" do
 			@play.start_playing
 			@mock_user.print_out_array[0].should eq "Game over! Would you like to start a new game?"
-			@mock_user.print_out_array[1].should eq "Game over! Would you like to start a new game?"
 		end
 
 		it "should print out a goodbye message after the loop" do

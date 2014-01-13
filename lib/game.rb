@@ -25,9 +25,9 @@ class Game
   def take_a_turn
     if @turn == :human
         @board.update_board(player_turn, "X")
-      else 
+    else 
         @board.update_board(computer_turn, "O")
-      end
+    end
   end
   
   def in_progress?
