@@ -12,23 +12,31 @@ class Game
     @turn = :human 
   end
 
-  def play_game
+  def print_welcome
     @user.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
     @user.print_out(@board.print_example_board)
     @user.print_out(@board.print_board)
-    # who_goes_first?
-    while @turn_counter < 10
-      if @turn == :human
+  end
+
+  def print_board
+    @user.print_out(@board.print_board)
+  end
+
+  def take_a_turn
+    if @turn == :human
         @board.update_board(player_turn, "X")
       else 
         @board.update_board(computer_turn, "O")
       end
-      @user.print_out(@board.print_board)
-      change_turn
-      game_check
-    end
   end
   
+  def in_progress?
+    if @turn_counter < 10
+      true
+    else
+      false
+    end
+  end
   # def who_goes_first?
   #   input = ""
   #   until input == "first" || input == "second"
@@ -62,7 +70,7 @@ class Game
 
   def computer_turn
     @user.print_out("The computer is playing...")
-    sleep(0.5)
+    # sleep(0.5)
     if @board.board[5] == SPACE
       return 5
     else
@@ -129,7 +137,7 @@ class Game
     @board.board[index] == SPACE
   end
 
-  def game_check
+  def check_for_winner
     @board.possible_wins.each do |line|
       if times_in_line(line, "X") == 3
         @user.print_out("Oops, it looks like you win!  That wasn't supposed to happen :|")

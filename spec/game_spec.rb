@@ -85,7 +85,8 @@ describe Game do
 		# end
 
 		it "calls the change_turn method" do
-			@game.should receive(:change_turn)
+			@game.should_receive(:game_check)
+			@game.play_game
 		end
 
 		# it "calls the game_check method" do
