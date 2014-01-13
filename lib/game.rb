@@ -42,19 +42,6 @@ class Game
   #   end
   # end
 
-  # def x_or_o?
-  #   input = ""
-  #   until input == "X" || input == "O"
-  #     @user.print_out("Would you like to be X's or O's?")
-  #     input = @user.get_input
-  #     if input == "X"
-  #       puts "X!"
-  #     elsif input == "O"
-  #       puts "o!"
-  #     end
-  #   end
-  # end
-
   # def user_first
   #   @turn = :human
   # end

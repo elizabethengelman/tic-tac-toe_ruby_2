@@ -26,7 +26,6 @@ class MockUser
 end
 
 class MockGame
-
 	attr_reader :play_game_called, :reset_called, :play_game_called_counter
 	def initialize
 		@play_game_called_counter = 0

@@ -5,23 +5,26 @@ class MockUser
 	def initialize
 		@print_out_counter = 0
 	end
-	def print_out
+	
+	def print_out(output)
 		@print_out_counter += 1
+		output
 	end
 end
+
 
 describe Game do
 	before :each do
 		@mock_user = MockUser.new
+		@board = Board.new
 		@game = Game.new(@mock_user)
 	end
 
 	describe "#play_game" do
-		"it should call the print_out method 3 times" do
+		it "should call the print_out method 3 times" do
 			@game.play_game
-			@mock_user.print_out_counter
+			@mock_user.print_out_counter.should eq 3
 		end
-
 	end
 
 	# describe "#who_goes_first?" do
@@ -81,14 +84,14 @@ describe Game do
 		
 	# end
 
-	describe "#find_computer_move" do
-	end
+	# describe "#find_computer_move" do
+	# end
 
-	describe "#times_in_line" do
-	end
+	# describe "#times_in_line" do
+	# end
 
-	describe "#empty_in_line" do
-	end
+	# describe "#empty_in_line" do
+	# end
 	
 	# describe "#valid_move?" do 
 	# 	it "should return true if the space is open" do
@@ -106,12 +109,13 @@ describe Game do
 	# 	end
 	# end
 	
-	describe "#game_check" do
-	end
+	# describe "#game_check" do
+	# end
 
-	describe "#game_over" do
-		it "should end the game by setting the turn counter to 11" do
-			@game.game_over.should equal 11
-		end	
-	end
+	# describe "#game_over" do
+	# 	it "should end the game by setting the turn counter to 11" do
+	# 		@game.game_over.should equal 11
+	# 	end	
+	# end
+
 end
