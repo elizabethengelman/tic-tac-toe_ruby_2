@@ -8,8 +8,6 @@ class Play
 	def start_playing #a user playing several games
 	  response = "yes"
 	  until response != "yes"
-    	@board = Board.new
-      @game.reset(@board)
 		  play_game
 		  @user.print_out("Game over! Would you like to start a new game?") #should this be a funtion of the Game class?
 		  response = @user.get_input
@@ -18,6 +16,8 @@ class Play
 	end
 
 	def play_game #a user playing one game
+    @board = Board.new
+    @game.reset(@board)
     @game.print_welcome
     # who_goes_first?
     while @game.in_progress?

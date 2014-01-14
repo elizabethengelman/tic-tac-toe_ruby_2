@@ -23,6 +23,27 @@ class MockUser
 	end
 end
 
+class NewMockUser
+	attr_reader :print_out_array
+	def initialize
+		@print_out_array = []
+		@input_counter = 0
+	end
+	
+	def print_out(output)
+		@print_out_array << output
+	end
+
+	def get_input
+		@input_counter += 1
+		if @input_counter == 1
+			10
+		else
+			1
+		end
+	end
+end
+
 class MockPlay
 	attr_reader :board
 	def initialize(user,game)
@@ -32,9 +53,8 @@ class MockPlay
 	end
 end
 
-class Game
-	attr_reader :turn_counter
-	attr_accessor :turn
+class Game #need to get rid of this! it's changing the behavior of the class
+	attr_accessor :turn_counter, :turn
 end
 
 class Board
@@ -48,10 +68,10 @@ describe Game do
 		@mock_play = MockPlay.new(@mock_user, @game)
 	end
 
-	describe "#play_game" do
+	describe "#print_welcome" do
 		before :each do
 			@game.reset(@mock_play.board)
-			@game.play_game
+			@game.print_welcome
 		end
 
 		it "prints out a welcome message" do
@@ -80,17 +100,43 @@ describe Game do
       "  |   |  "
   	  ]
 		end
+	end
 
-		# it "repeats the loop while the turn counter is less than 10" do
-		# end
+	describe "#print_board" do
+		it "prints out the current board" do
+			@game.reset(@mock_play.board)
+			@mock_play.board.board[1] = "X"
+			@game.print_board
+			@mock_user.print_out_array[0].should eq [
+      "X |   |  ",
+      "_________",
+      "  |   |  ",
+      "_________",
+      "  |   |  "
+  	  ]
+		end
+	end
 
-		it "calls the change_turn method" do
-			@game.should_receive(:game_check)
-			@game.play_game
+	describe "#take_a_turn" do
+		it "updates the board with player_turn if it's the human's turn" do
+		pending
 		end
 
-		# it "calls the game_check method" do
-		# end
+		it "updates the board with computer_turn if it's the computer's turn" do
+		pending
+		end
+	end
+
+	describe "#in_progress?" do
+		it "returns true if the turn_counter is less than 10" do
+			@game.turn_counter = 8 #work on a better way to do this
+			@game.in_progress?.should eq true
+		end
+
+		it "returns false if the turn_counter is greater than 10" do
+			@game.turn_counter = 11 #work on a better way to do this
+			@game.in_progress?.should eq false
+		end
 	end
 
 	describe "#player_turn" do
@@ -103,11 +149,18 @@ describe Game do
 			@mock_user.print_out_array[0].should eq "Where would you like to place your X?"
 		end
 
-		# it "should continue the loop until the user enters a valid move" do
-		# end
+		it "continues the loop until the user inputs a valid position" do
+			@new_mock_user = NewMockUser.new
+			@mock_play2 = MockPlay.new(@new_mock_user, @game)
+			@game.reset(@mock_play2.board)
+			@game.player_turn
+			@new_mock_user.print_out_array[0].should eq "no"
 
-		# it "should return the player's position" do
-		# end
+		end
+
+		it "should return the player's position" do
+		end
+
 	end
 
 	describe "#computer_turn" do
@@ -181,7 +234,7 @@ describe Game do
 		end
 	end
 	
-	# describe "#game_check" do
+	# describe "#check_for_winner" do
 	# end
 
 	describe "#game_over" do

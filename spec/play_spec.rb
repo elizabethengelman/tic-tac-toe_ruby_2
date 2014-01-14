@@ -26,9 +26,15 @@ class MockUser
 end
 
 class MockGame
-	attr_reader :play_game_called, :reset_called, :play_game_called_counter
+	attr_reader :reset_called, :print_welcome_called, :take_a_turn_counter, 
+							:print_board_counter, :change_turn_counter, :check_winner_counter
+	attr_accessor :progress_counter
 	def initialize
-		@play_game_called_counter = 0
+		@progress_counter = 0
+		@take_a_turn_counter = 0
+		@print_board_counter = 0
+		@change_turn_counter = 0
+		@check_winner_counter = 0
 	end
 
 	def reset(board)
@@ -36,21 +42,33 @@ class MockGame
 	end
 
 	def print_welcome
+		@print_welcome_called = true
 	end
 
 	def in_progress?
+		if @progress_counter >= 2
+			progress = false
+		else
+			progress = true
+		end
+		@progress_counter += 1
+		progress
 	end
 
 	def take_a_turn
+		@take_a_turn_counter += 1
 	end
 
 	def print_board
+		@print_board_counter += 1
 	end
 
 	def change_turn
+		@change_turn_counter += 1
 	end
 
 	def check_for_winner
+		@check_winner_counter += 1
 	end
 
 end
@@ -63,11 +81,6 @@ describe Play do
 	end
   
 	describe "#start_playing" do
-    
-    it "should call the reset method" do
-    	@play.start_playing
-    	@mock_game.reset_called.should equal true
-    end
 
     it "should call the play_game method on the @game object" do
       @play.should_receive(:play_game).twice
@@ -88,5 +101,36 @@ describe Play do
 			@play.start_playing
 			@mock_user.print_out_counter.should eq 3 
 		end
+	end
+
+	describe "#play_game" do
+		before :each do 
+			@play.play_game
+		end
+
+    it "should call the reset method" do
+    	@mock_game.reset_called.should equal true
+    end
+
+    it "should call the print_welcome method" do
+    	@mock_game.print_welcome_called.should equal true
+    end
+
+    it "should call the take_a_turn method each game" do
+    	@mock_game.take_a_turn_counter.should eq 2
+    end
+
+
+    it "should call the print_board method each game" do
+    	@mock_game.print_board_counter.should eq 2
+    end
+
+    it "should call the change turn method" do
+    	@mock_game.change_turn_counter.should eq 2
+    end
+
+    it "should call the check_for_winner method" do
+    	@mock_game.check_winner_counter.should eq 2
+    end
 	end
 end
