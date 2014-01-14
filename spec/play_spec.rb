@@ -37,7 +37,7 @@ class MockGame
 		@check_winner_counter = 0
 	end
 
-	def reset(board)
+	def reset
 		@reset_called = true
 	end
 

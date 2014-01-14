@@ -1,6 +1,6 @@
 class Board
   SPACE = " "
-	attr_accessor :board
+	attr_accessor :board #is this necessary?
 	attr_reader :possible_wins
   
 	def initialize

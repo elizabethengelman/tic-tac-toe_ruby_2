@@ -1,13 +1,13 @@
 class Game
   SPACE = " "
-  attr_reader :turn
+  attr_reader :turn, :board
   
   def initialize(user_object)
     @user = user_object
   end
 
-  def reset(board_object)
-    @board = board_object
+  def reset
+    @board = Board.new
     @turn_counter = 0   
     @turn = :human 
   end

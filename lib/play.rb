@@ -16,8 +16,7 @@ class Play
 	end
 
 	def play_game #a user playing one game
-    @board = Board.new
-    @game.reset(@board)
+    @game.reset
     @game.print_welcome
     # who_goes_first?
     while @game.in_progress?
