@@ -28,20 +28,20 @@ describe User do
 		@user = User.new(@board,@mock_user_interface)
 	end
 
-describe "#user_turn" do
+describe "#player_turn" do
 
 		it "prints out a message asking the user where to place their x" do
-			@user.user_turn
+			@user.player_turn
 			@mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
 		end
 
 		it "should tell the user if they've input an invalid move" do
-			@user.user_turn
+			@user.player_turn
 			@mock_user_interface.print_out_array[1].should eq "Sorry, that is not a valid move, please try again."
 		end
 
-		it "should return the player's position" do
-			@user.user_turn.should eq 2	
+		it "should return the user's position" do
+			@user.player_turn.should eq [2,"X"]
 		end
 	end
 end

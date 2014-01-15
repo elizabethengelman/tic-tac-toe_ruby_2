@@ -6,20 +6,20 @@ describe Computer do
 		@computer = Computer.new(@board)
 	end
 
-	describe "#computer_turn" do
+	describe "#player_turn" do
 
 		before :each do
-			@computer.computer_turn
+			@computer.player_turn
 		end
 
 		it "should return 5 if that space is available" do
-			@computer.computer_turn.should equal 5
+			@computer.player_turn.should eq [5,"O"]
 		end
 
 		it "should run the find_computer_move method if 5 is not available" do
 			@board.update_board(5,"X")
 			@computer.should receive(:find_computer_move)
-			@computer.computer_turn
+			@computer.player_turn
 		end	
 	end
 
