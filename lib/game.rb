@@ -71,7 +71,7 @@ class Game
     end
   end
 
-  def check_for_winner
+  def check_for_winner #is this a function of game, or the board?
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "X") == 3
         @user_interface.print_out("Oops, it looks like you win!  That wasn't supposed to happen :|")

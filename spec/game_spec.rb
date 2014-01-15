@@ -117,7 +117,7 @@ describe Game do
 		before :each do 
 			@game.reset
 		end
-		it "updates the board with player_turn if it's the human's turn" do
+		it "updates the board with user_turn if it's the user's turn" do
 			pending "For some reason this breaks when running the full rspec"	
 			@game.take_a_turn.should eq "X"
 		end
@@ -146,29 +146,6 @@ describe Game do
 		end
 	end
 
-	describe "#player_turn" do
-		before :each do 
-			@second_mock_user_interface = SecondMockUserInterface.new
-			@second_game = Game.new(@second_mock_user_interface)
-			@second_mock_play = MockPlay.new(@second_mock_user_interface, @second_game)
-			@second_game.reset
-			@second_game.player_turn
-		end
-
-		it "prints out a message asking the user where to place their x" do
-			@second_mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
-		end
-
-		it "should tell the user if they've input an invalid move" do
-			@second_mock_user_interface.print_out_array[1].should eq "Sorry, that is not a valid move, please try again."
-		end
-
-		it "should return the player's position" do
-			@second_game.player_turn.should eq 2	
-		end
-	end
-
-
 	describe "#change_turn" do
 		before :each do 
 			@game.reset
@@ -189,6 +166,35 @@ describe Game do
 			@game.turn.should eq :human
 		end
 	end
+
+	describe "#check_for_winner" do
+    before :each do
+      @game.reset
+    end
+
+    it "should print that the user has won" do
+      @game.board.board[1] = "X"
+      @game.board.board[2] = "X"
+      @game.board.board[3] = "X"
+      @game.check_for_winner
+      @mock_user_interface.print_out_array[0].should eq "Oops, it looks like you win!  That wasn't supposed to happen :|"
+    end
+
+    it "should print that the computer had won" do
+      @game.board.board[1] = "O"
+      @game.board.board[2] = "O"
+      @game.board.board[3] = "O"
+      @game.check_for_winner
+      @mock_user_interface.print_out_array[0].should eq "The computer wins!"
+    end
+
+    it "should print that they have tied" do
+      @game.turn_counter = 10
+      @game.check_for_winner
+      @mock_user_interface.print_out_array[0].should eq "You've tied!"
+    end
+  end
+
 
 	describe "#game_over" do
 		it "should end the game by setting the turn counter to 11" do
