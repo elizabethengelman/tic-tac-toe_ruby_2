@@ -82,7 +82,7 @@ describe Play do
   
 	describe "#start_playing" do
 
-    it "should call the play_game method on the @game object" do
+    it "should call the play_game method" do
       @play.should_receive(:play_game).twice
       @play.start_playing
     end

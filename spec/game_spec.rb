@@ -23,27 +23,6 @@ class MockUserInterface
 	end
 end
 
-class SecondMockUserInterface
-	attr_reader :print_out_array
-	def initialize
-		@print_out_array = []
-		@input_counter = 0
-	end
-	
-	def print_out(output)
-		@print_out_array << output
-	end
-
-	def get_input
-		@input_counter += 1
-		if @input_counter == 1
-			10
-		else
-			2
-		end
-	end
-end
-
 class MockPlay
 	attr_accessor :board
 	def initialize(user,game)
@@ -101,7 +80,7 @@ describe Game do
 	describe "#print_board" do
 		it "prints out the current board" do
 			@game.reset
-			@game.board.board[1] = "X"
+			@game.board.update_board(1,"X")
 			@game.print_board
 			@mock_user_interface.print_out_array[0].should eq [
       "X |   |  ",
@@ -173,17 +152,17 @@ describe Game do
     end
 
     it "should print that the user has won" do
-      @game.board.board[1] = "X"
-      @game.board.board[2] = "X"
-      @game.board.board[3] = "X"
+      @game.board.update_board(1,"X")
+      @game.board.update_board(2,"X")
+      @game.board.update_board(3,"X")
       @game.check_for_winner
       @mock_user_interface.print_out_array[0].should eq "Oops, it looks like you win!  That wasn't supposed to happen :|"
     end
 
     it "should print that the computer had won" do
-      @game.board.board[1] = "O"
-      @game.board.board[2] = "O"
-      @game.board.board[3] = "O"
+      @game.board.update_board(1,"O")
+      @game.board.update_board(2,"O")
+      @game.board.update_board(3,"O")
       @game.check_for_winner
       @mock_user_interface.print_out_array[0].should eq "The computer wins!"
     end

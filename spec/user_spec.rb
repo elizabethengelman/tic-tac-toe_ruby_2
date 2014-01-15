@@ -1,21 +1,47 @@
-describe "#player_turn" do
-		before :each do 
-			@second_mock_user_interface = SecondMockUserInterface.new
-			@second_game = Game.new(@second_mock_user_interface)
-			@second_mock_play = MockPlay.new(@second_mock_user_interface, @second_game)
-			@second_game.reset
-			@second_game.player_turn
+require 'spec_helper'
+
+class MockUserInterface
+	attr_reader :print_out_array
+	def initialize
+		@print_out_array = []
+		@input_counter = 0
+	end
+	
+	def print_out(output)
+		@print_out_array << output
+	end
+
+	def get_input
+		@input_counter += 1
+		if @input_counter == 1
+			10
+		else
+			2
 		end
+	end
+end
+
+describe User do
+	before :each do
+		@board = Board.new
+		@mock_user_interface = MockUserInterface.new
+		@user = User.new(@board,@mock_user_interface)
+	end
+
+describe "#user_turn" do
 
 		it "prints out a message asking the user where to place their x" do
-			@second_mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
+			@user.user_turn
+			@mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
 		end
 
 		it "should tell the user if they've input an invalid move" do
-			@second_mock_user_interface.print_out_array[1].should eq "Sorry, that is not a valid move, please try again."
+			@user.user_turn
+			@mock_user_interface.print_out_array[1].should eq "Sorry, that is not a valid move, please try again."
 		end
 
 		it "should return the player's position" do
-			@second_game.player_turn.should eq 2	
+			@user.user_turn.should eq 2	
 		end
 	end
+end

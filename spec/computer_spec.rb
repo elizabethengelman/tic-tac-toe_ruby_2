@@ -42,6 +42,4 @@ describe Computer do
 			@computer.find_computer_move.should eq 2
 		end
 	end
-	
-
 end	

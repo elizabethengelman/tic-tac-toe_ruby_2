@@ -6,13 +6,14 @@ class Computer
   end
 
 
-  def computer_turn
+  def player_turn
     # sleep(0.5)
     if @board.board[5] == SPACE
-      return 5
+      position = 5
     else
-      find_computer_move
+      position = find_computer_move
     end
+    [position, "O"]
   end
 
  def find_computer_move

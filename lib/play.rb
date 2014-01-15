@@ -17,10 +17,13 @@ class Play
 
 	def play_game #a user playing one game
     @game.reset
+    @user = @game.user
+    @computer = @game.computer
     @game.print_welcome
-    # who_goes_first?
     while @game.in_progress?
-      @game.take_a_turn
+      [@user, @computer].each do |player|
+      	@game.take_a_turn(player)
+      end
       @game.print_board
       @game.change_turn
       @game.check_for_winner

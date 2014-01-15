@@ -1,6 +1,6 @@
 class Game
   SPACE = " "
-  attr_reader :turn, :board
+  attr_reader :turn, :board, :computer, :user
   
   def initialize(user_interface)
     @user_interface = user_interface
@@ -25,13 +25,20 @@ class Game
     @user_interface.print_out(@board.print_board)
   end
 
-  def take_a_turn
-    if @turn == :human
-      @board.update_board(@user.user_turn, "X")
-    else 
-      @user_interface.print_out("The computer is playing...")
-      @board.update_board(@computer.computer_turn, "O")
-    end
+  # def take_a_turn #before I added polymorphism
+  #   if @turn == :human
+  #     move = @user.player_turn
+  #     @board.update_board(move[0], move[1])
+  #   else 
+  #     move = @computer.player_turn
+  #     @user_interface.print_out("The computer is playing...")
+  #     @board.update_board(move[0], move[1])
+  #   end
+  # end
+
+  def take_a_turn(player)
+    move = player.player_turn
+    @board.update_board(move[0],move[1])
   end
   
   def in_progress?
@@ -64,11 +71,11 @@ class Game
 
   def change_turn
     @turn_counter +=1
-    if @turn == :human
-      @turn = :computer
-    else
-      @turn = :human
-    end
+    # if @turn == :human
+    #   @turn = :computer
+    # else
+    #   @turn = :human
+    # end
   end
 
   def check_for_winner #is this a function of game, or the board?
