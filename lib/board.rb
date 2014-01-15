@@ -43,4 +43,26 @@ class Board
     @board[position] = mark
   end
 
+   def times_in_line(poss_winning_line, player_mark)
+    times = 0
+    poss_winning_line.each do |index|
+      times += 1 if @board[index] == player_mark
+      unless @board[index] == player_mark || @board[index] == SPACE
+        return 0
+      end
+    end
+    times  
+  end
+
+  def empty_in_line(poss_winning_line)
+    poss_winning_line.each do |index|
+      if @board[index] == SPACE
+        return index
+      end
+    end
+  end
+
+  def valid_move?(index)
+    @board[index] == SPACE
+  end
 end

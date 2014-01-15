@@ -8,6 +8,7 @@ describe UserInterface do
 	describe "#get_input" do
 		it "should get input from the user via STDIN" do
 			pending
+			puts "UserInterface"
 			@user.should be_an_instance_of UserInterface 
 	  end
 	end

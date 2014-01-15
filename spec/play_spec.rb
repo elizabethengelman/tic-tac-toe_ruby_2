@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class MockUser
+class MockUserInterface
 	attr_reader :print_out_called, :print_out_counter, :print_out_array
 	attr_accessor :input
 	def initialize
@@ -75,9 +75,9 @@ end
 
 describe Play do
 	before :each do
-		@mock_user = MockUser.new
+		@mock_user_interface = MockUserInterface.new
 		@mock_game = MockGame.new
-		@play = Play.new(@mock_user, @mock_game)
+		@play = Play.new(@mock_user_interface, @mock_game)
 	end
   
 	describe "#start_playing" do
@@ -89,17 +89,17 @@ describe Play do
 
 		it "should print out a message asking if the user would like to play again" do
 			@play.start_playing
-			@mock_user.print_out_array[0].should eq "Game over! Would you like to start a new game?"
+			@mock_user_interface.print_out_array[0].should eq "Game over! Would you like to start a new game?"
 		end
 
 		it "should print out a goodbye message after the loop" do
 			@play.start_playing
-			@mock_user.print_out_array[2].should eq "Thanks for playing! Goodbye!"
+			@mock_user_interface.print_out_array[2].should eq "Thanks for playing! Goodbye!"
 		end
 
 		it "should call the print_out method 3 times" do
 			@play.start_playing
-			@mock_user.print_out_counter.should eq 3 
+			@mock_user_interface.print_out_counter.should eq 3 
 		end
 	end
 

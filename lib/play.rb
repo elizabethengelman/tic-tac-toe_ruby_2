@@ -1,7 +1,7 @@
 class Play
 	
-	def initialize(user, game)
-		@user = user
+	def initialize(user_interface, game)
+		@user_interface = user_interface
 		@game = game
 	end
   
@@ -9,10 +9,10 @@ class Play
 	  response = "yes"
 	  until response != "yes"
 		  play_game
-		  @user.print_out("Game over! Would you like to start a new game?") #should this be a funtion of the Game class?
-		  response = @user.get_input
+		  @user_interface.print_out("Game over! Would you like to start a new game?") #should this be a funtion of the Game class?
+		  response = @user_interface.get_input
 	  end
-	  @user.print_out("Thanks for playing! Goodbye!")
+	  @user_interface.print_out("Thanks for playing! Goodbye!")
 	end
 
 	def play_game #a user playing one game
