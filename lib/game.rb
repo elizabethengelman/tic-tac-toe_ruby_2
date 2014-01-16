@@ -79,6 +79,6 @@ class Game
   end
 
   def game_over
-    @turn_counter = 11
+    @turn_counter = 6
   end 
 end

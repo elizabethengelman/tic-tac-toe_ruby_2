@@ -23,16 +23,19 @@ class Computer
     #I am not sure if that would be easier to understand or not.
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "O") == 2
+        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "X") == 2
+        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "O") == 1
+        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end

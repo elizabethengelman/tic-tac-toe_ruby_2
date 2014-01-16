@@ -32,7 +32,7 @@ class MockPlay
 	end
 end
 
-class Game #need to get rid of this! it's changing the behavior of the class
+class Game #need to get rid of this! it's changing the behavior of the class?
 	attr_accessor :turn_counter, :turn
 end
 
@@ -106,13 +106,6 @@ describe Game do
 			@game.change_turn
 			@game.take_a_turn.should eq "O"
 		end
-
-		it "should print out a message when the computer is playing" do
-			pending "Need to figure out how to test this new method"
-			@game.change_turn
-			@game.take_a_turn.should eq "O"
-			@mock_user_interface.print_out_array[0].should eq "The computer is playing..."
-		end
 	end
 
 	describe "#in_progress?" do
@@ -151,7 +144,7 @@ describe Game do
       @mock_user_interface.print_out_array[0].should eq "Oops, it looks like you win!  That wasn't supposed to happen :|"
     end
 
-    it "should print that the computer had won" do
+    it "should print that the computer has won" do
       @game.board.update_board(1,"O")
       @game.board.update_board(2,"O")
       @game.board.update_board(3,"O")
@@ -165,7 +158,6 @@ describe Game do
       @mock_user_interface.print_out_array[0].should eq "You've tied!"
     end
   end
-
 
 	describe "#game_over" do
 		it "should end the game by setting the turn counter to 11" do
