@@ -21,7 +21,7 @@ class Play
     @computer = @game.computer
     @game.print_welcome
     while @game.in_progress?
-      [@user, @computer].each do |player|
+      [@user, @computer].each do |player| #iterate through the user and computer in the game class instead of the play class?
       	@game.take_a_turn(player)
       end
       @game.print_board
