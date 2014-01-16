@@ -1,13 +1,15 @@
 class Computer
   SPACE = " "
   
-	def initialize(board)
+	def initialize(board, user_interface)
 		@board = board
+    @user_interface = user_interface
   end
 
 
   def player_turn
     # sleep(0.5)
+    @user_interface.print_out("The computer is playing...")
     if @board.board[5] == SPACE
       position = 5
     else
@@ -23,19 +25,16 @@ class Computer
     #I am not sure if that would be easier to understand or not.
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "O") == 2
-        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "X") == 2
-        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "O") == 1
-        puts @board.empty_in_line(line)
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end

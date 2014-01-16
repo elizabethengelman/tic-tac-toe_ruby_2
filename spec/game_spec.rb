@@ -11,7 +11,7 @@ class MockUserInterface
 		@print_out_array << output
 	end
 
-	def get_input #maybe create and array like the print out method
+	def get_input
 		@input_counter += 1
 		if @input_counter == 1
 			1
@@ -32,8 +32,20 @@ class MockPlay
 	end
 end
 
+class MockUser
+	attr_reader :take_a_turn_counter
+
+	def initialize
+		take_a_turn_counter = 0
+	end
+	def take_a_turn
+		puts "this is the user taking a turn"
+		@take_a_turn_counter += 1 
+	end
+end
+
 class Game #need to get rid of this! it's changing the behavior of the class?
-	attr_accessor :turn_counter, :turn
+	attr_accessor :turn_counter
 end
 
 describe Game do
@@ -93,29 +105,31 @@ describe Game do
 	end
 
 	describe "#take_a_turn" do
-		before :each do 
-			@game.reset
-		end
-		it "updates the board with user_turn if it's the user's turn" do
-			pending "For some reason this breaks when running the full rspec"	
-			@game.take_a_turn.should eq "X"
+
+		it "iterates through both players and runs player_turn on each" do
+			pending
+			@game.take_a_turn
+			@user.take_a_turn_counter.should eq 1
 		end
 
-		it "updates the board with computer_turn if it's the computer's turn" do
-			pending "Need to figure out how to test this new method"
-			@game.change_turn
-			@game.take_a_turn.should eq "O"
+		it "updates the board with @user.player_turn" do
+		pending "HOW DO I TEST THIS?"
+		end
+
+		it "updates the board with @computer.player_turn" do
+			pending "HOW DO I TEST THIS?"
 		end
 	end
 
 	describe "#in_progress?" do
 		it "returns true if the turn_counter is less than 5" do
-			@game.turn_counter = 3 #work on a better way to do this
+			@game.reset
 			@game.in_progress?.should eq true
 		end
 
-		it "returns false if the turn_counter is greater than 5" do
-			@game.turn_counter = 6 #work on a better way to do this
+		it "returns false if the turn_counter is greater than or equal to 5" do
+			@game.reset
+			5.times {@game.change_turn}
 			@game.in_progress?.should eq false
 		end
 	end
@@ -127,7 +141,7 @@ describe Game do
 		end
 
 		it "should add 1 to the turn counter" do
-			@game.turn_counter.should eq 1
+			@game.turn_counter.should eq 1 #how can i test this in a different way, without adding a turn_counter attr_reader?
 		end
 	end
 
@@ -160,9 +174,9 @@ describe Game do
   end
 
 	describe "#game_over" do
-		it "should end the game by setting the turn counter to 11" do
+		it "should end the game by setting the turn counter to 6" do
 			@game.game_over
-			@game.turn_counter.should eq 11
+			@game.turn_counter.should eq 6
 		end	
 	end
 end

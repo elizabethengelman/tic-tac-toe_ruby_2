@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-class MockUserInterface
-	attr_reader :print_out_called, :print_out_counter, :print_out_array
+class FakeUserInterface #needed to changed the name of this from MockUserInterface because
+	#i also use a MockUserInterface in the Game tests, which behaves differently than this one needs to
+	attr_reader :print_out_called, :print_out_counter, :print_out_array, :get_input_counter
 	attr_accessor :input
 	def initialize
 		@get_input_counter = 0
@@ -76,7 +77,7 @@ end
 
 describe Play do
 	before :each do
-		@mock_user_interface = MockUserInterface.new
+		@mock_user_interface = FakeUserInterface.new
 		@mock_game = MockGame.new
 		@play = Play.new(@mock_user_interface, @mock_game)
 	end
@@ -101,6 +102,11 @@ describe Play do
 		it "should call the print_out method 3 times" do
 			@play.start_playing
 			@mock_user_interface.print_out_counter.should eq 3 
+		end
+
+		it "should call the get_input method 2 times" do
+			@play.start_playing
+			@mock_user_interface.get_input_counter.should eq 2
 		end
 	end
 

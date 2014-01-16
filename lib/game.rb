@@ -9,7 +9,7 @@ class Game
   def reset
     @board = Board.new
     @turn_counter = 0   
-    @computer = Computer.new(@board)
+    @computer = Computer.new(@board, @user_interface)
     @user = User.new(@board, @user_interface)
   end
 

@@ -1,15 +1,33 @@
 require 'spec_helper'
 
+class MockUserInterface
+	attr_reader :print_out_array
+	def initialize
+		@print_out_array = []
+		@input_counter = 0
+	end
+	
+	def print_out(output)
+		@print_out_array << output
+	end
+end
+
+
 describe Computer do
 	before :each do
 		@board = Board.new
-		@computer = Computer.new(@board)
+		@mock_user_interface = MockUserInterface.new
+		@computer = Computer.new(@board, @mock_user_interface)
 	end
 
 	describe "#player_turn" do
 
 		before :each do
 			@computer.player_turn
+		end
+
+		it "should print out a message that the computer is playing" do
+			@mock_user_interface.print_out_array[0].should eq "The computer is playing..."
 		end
 
 		it "should return 5 if that space is available" do
@@ -41,5 +59,10 @@ describe Computer do
 			@board.update_board(1,"X")
 			@computer.find_computer_move.should eq 2
 		end
+
+		it "should return the first available space" do
+			@board.update_board(1, "X")
+			@computer.find_computer_move.should eq 2
+		end	
 	end
 end	

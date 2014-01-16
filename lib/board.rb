@@ -1,3 +1,4 @@
+require 'pry'
 class Board
   SPACE = " "
 	attr_reader :board #is this necessary?
