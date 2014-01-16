@@ -116,13 +116,13 @@ describe Game do
 	end
 
 	describe "#in_progress?" do
-		it "returns true if the turn_counter is less than 10" do
-			@game.turn_counter = 8 #work on a better way to do this
+		it "returns true if the turn_counter is less than 5" do
+			@game.turn_counter = 3 #work on a better way to do this
 			@game.in_progress?.should eq true
 		end
 
-		it "returns false if the turn_counter is greater than 10" do
-			@game.turn_counter = 11 #work on a better way to do this
+		it "returns false if the turn_counter is greater than 5" do
+			@game.turn_counter = 6 #work on a better way to do this
 			@game.in_progress?.should eq false
 		end
 	end
@@ -170,7 +170,7 @@ describe Game do
     end
 
     it "should print that they have tied" do
-      @game.turn_counter = 10
+      @game.turn_counter = 5
       @game.check_for_winner
       @mock_user_interface.print_out_array[0].should eq "You've tied!"
     end

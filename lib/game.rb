@@ -1,6 +1,6 @@
 class Game
   SPACE = " "
-  attr_reader :turn, :board, :computer, :user
+  attr_reader :board, :computer, :user
   
   def initialize(user_interface)
     @user_interface = user_interface
@@ -9,7 +9,6 @@ class Game
   def reset
     @board = Board.new
     @turn_counter = 0   
-    @turn = :human 
     @computer = Computer.new(@board)
     @user = User.new(@board, @user_interface)
   end
@@ -73,11 +72,6 @@ class Game
 
   def change_turn
     @turn_counter +=1
-    # if @turn == :human
-    #   @turn = :computer
-    # else
-    #   @turn = :human
-    # end
   end
 
   def check_for_winner #is this a function of game, or the board?

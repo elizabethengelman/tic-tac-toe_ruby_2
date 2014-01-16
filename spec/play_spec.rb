@@ -56,7 +56,7 @@ class MockGame
 		progress
 	end
 
-	def take_a_turn(player)
+	def take_a_turn
 		@take_a_turn_counter += 1
 	end
 
@@ -118,7 +118,6 @@ describe Play do
     end
 
     it "should call the take_a_turn method each game" do
-    	pending "How to revise this test?"
     	@mock_game.take_a_turn_counter.should eq 2
     end
 
