@@ -24,17 +24,6 @@ class Game
     @user_interface.print_out(@board.print_board)
   end
 
-  # def take_a_turn #before I added polymorphism
-  #   if @turn == :human
-  #     move = @user.player_turn
-  #     @board.update_board(move[0], move[1])
-  #   else 
-  #     move = @computer.player_turn
-  #     @user_interface.print_out("The computer is playing...")
-  #     @board.update_board(move[0], move[1])
-  #   end
-  # end
-
   def take_a_turn
     [@user, @computer].each do |player|
       move = player.player_turn

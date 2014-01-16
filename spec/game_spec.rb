@@ -136,16 +136,6 @@ describe Game do
 		it "should add 1 to the turn counter" do
 			@game.turn_counter.should eq 1
 		end
-    
-  #   it "should change the turn to :computer if it's currently :human" do
-		# 	@game.turn.should eq :computer
-		# end
-
-		# it "should change the turn to :human if it's currrently :computer" do
-		# 	@game.turn = :computer
-		# 	@game.change_turn
-		# 	@game.turn.should eq :human
-		# end
 	end
 
 	describe "#check_for_winner" do
