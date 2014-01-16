@@ -36,13 +36,15 @@ class Game
   #   end
   # end
 
-  def take_a_turn(player)
-    move = player.player_turn
-    @board.update_board(move[0],move[1])
+  def take_a_turn
+    [@user, @computer].each do |player|
+      move = player.player_turn
+      @board.update_board(move[0],move[1])
+    end
   end
   
   def in_progress?
-    if @turn_counter < 10
+    if @turn_counter < 5
       true
     else
       false
@@ -86,7 +88,7 @@ class Game
       elsif @board.times_in_line(line, "O") == 3
         @user_interface.print_out("The computer wins!")
         game_over
-      elsif @turn_counter == 10
+      elsif @turn_counter == 5
         @user_interface.print_out("You've tied!")
         game_over
       end
