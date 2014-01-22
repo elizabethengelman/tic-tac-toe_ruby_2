@@ -32,17 +32,16 @@ class MockPlay
 	end
 end
 
-class MockUser
-	attr_reader :take_a_turn_counter
+# class MockUser
+# 	attr_reader :take_a_turn_counter
 
-	def initialize
-		take_a_turn_counter = 0
-	end
-	def take_a_turn
-		puts "this is the user taking a turn"
-		@take_a_turn_counter += 1 
-	end
-end
+# 	def initialize
+# 		take_a_turn_counter = 0
+# 	end
+# 	def take_a_turn
+# 		@take_a_turn_counter += 1 
+# 	end
+# end
 
 class Game #need to get rid of this! it's changing the behavior of the class?
 	attr_accessor :turn_counter
@@ -53,11 +52,14 @@ describe Game do
 		@mock_user_interface = MockUserInterface.new
 		@game = Game.new(@mock_user_interface) #this is confusing that both game and play receive a user object
 		@mock_play = MockPlay.new(@mock_user_interface, @game)
+		@board = @mock_play.board
+		@computer = Computer.new(@board, @user_interface)
+    @user = User.new(@board, @user_interface)
 	end
 
 	describe "#print_welcome" do
 		before :each do
-			@game.reset
+			@game.reset([@user, @computer], @board)
 			@game.print_welcome
 		end
 
@@ -91,7 +93,7 @@ describe Game do
 
 	describe "#print_board" do
 		it "prints out the current board" do
-			@game.reset
+			@game.reset([@user, @computer], @board)
 			@game.board.update_board(1,"X")
 			@game.print_board
 			@mock_user_interface.print_out_array[0].should eq [
@@ -105,30 +107,31 @@ describe Game do
 	end
 
 	describe "#take_a_turn" do
+		before :each do
+			@game.reset([@user, @computer], @board)
+		end		
 
-		it "iterates through both players and runs player_turn on each" do
-			pending
-			@game.take_a_turn
-			@user.take_a_turn_counter.should eq 1
+		it "iterates through both players and runs player_turn on each" do			
+			pending "HOW DO I TEST THIS????????"
 		end
 
 		it "updates the board with @user.player_turn" do
-		pending "HOW DO I TEST THIS?"
+		pending "HOW DO I TEST THIS??????"
 		end
 
 		it "updates the board with @computer.player_turn" do
-			pending "HOW DO I TEST THIS?"
+			pending "HOW DO I TEST THIS??????"
 		end
 	end
 
 	describe "#in_progress?" do
 		it "returns true if the turn_counter is less than 5" do
-			@game.reset
+			@game.reset([@user, @computer], @board)
 			@game.in_progress?.should eq true
 		end
 
 		it "returns false if the turn_counter is greater than or equal to 5" do
-			@game.reset
+			@game.reset([@user, @computer], @board)
 			5.times {@game.change_turn}
 			@game.in_progress?.should eq false
 		end
@@ -136,7 +139,7 @@ describe Game do
 
 	describe "#change_turn" do
 		before :each do 
-			@game.reset
+			@game.reset([@user, @computer], @board)
 			@game.change_turn
 		end
 
@@ -147,7 +150,7 @@ describe Game do
 
 	describe "#check_for_winner" do
     before :each do
-      @game.reset
+      @game.reset([@user, @computer], @board)
     end
 
     it "should print that the user has won" do

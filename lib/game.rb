@@ -6,11 +6,11 @@ class Game
     @user_interface = user_interface
   end
 
-  def reset
-    @board = Board.new
+  def reset(players, board)
+    @board = board
     @turn_counter = 0   
-    @computer = Computer.new(@board, @user_interface)
-    @user = User.new(@board, @user_interface)
+    @player1 = players[0]
+    @player2 = players[1]
   end
 
 
@@ -25,7 +25,7 @@ class Game
   end
 
   def take_a_turn
-    [@user, @computer].each do |player|
+    [@player1, @player2].each do |player|
       move = player.player_turn
       @board.update_board(move[0],move[1])
     end

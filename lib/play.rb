@@ -16,7 +16,11 @@ class Play
 	end
 
 	def play_game #a user playing one game
-    @game.reset
+    board = Board.new
+    computer = Computer.new(board, @user_interface)
+    user = User.new(board, @user_interface)
+    players = [user, computer]
+    @game.reset(players, board)
     @game.print_welcome
     while @game.in_progress?
       @game.take_a_turn
