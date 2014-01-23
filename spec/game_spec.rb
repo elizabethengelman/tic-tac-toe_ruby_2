@@ -32,16 +32,19 @@ class MockPlay
 	end
 end
 
-# class MockUser
-# 	attr_reader :take_a_turn_counter
+class MockPlayer
+	attr_accessor :take_a_turn_counter
 
-# 	def initialize
-# 		take_a_turn_counter = 0
-# 	end
-# 	def take_a_turn
-# 		@take_a_turn_counter += 1 
-# 	end
-# end
+	def initialize(board, user_interface)
+		@board = board
+		@user_interface = user_interface
+		take_a_turn_counter = 0
+	end
+	def player_turn
+		@take_a_turn_counter += 1 
+	end
+end
+
 
 class Game #need to get rid of this! it's changing the behavior of the class?
 	attr_accessor :turn_counter
@@ -112,7 +115,15 @@ describe Game do
 		end		
 
 		it "iterates through both players and runs player_turn on each" do			
-			pending "HOW DO I TEST THIS????????"
+			# pending "HOW DO I TEST THIS????????"
+			@player1 = MockPlayer.new(@board, @mock_user_interface)
+			@player2 = MockPlayer.new(@board, @mock_user_interface)
+			@game.reset([@player1, @player1], @board)
+			@player1.should_receive(:player_turn).and_return([1, "X"])
+			@player2.should_receive(:player_turn).and_return([5, "O"])
+		
+			@game.take_a_turn
+			@game.board.board.should == {1 => "X", 2 => " ", 3 => " ", 4 => " ", 5 => "O", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
 		end
 
 		it "updates the board with @user.player_turn" do

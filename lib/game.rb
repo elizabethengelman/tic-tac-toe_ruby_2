@@ -30,13 +30,12 @@ class Game
       @board.update_board(move[0],move[1])
     end
   end
+
+  #set expectations on the array that is being passed in
+  #and then check the state afterward
   
   def in_progress?
-    if @turn_counter < 5
-      true
-    else
-      false
-    end
+    @turn_counter < 5
   end
   # def who_goes_first?
   #   input = ""
@@ -49,14 +48,6 @@ class Game
   #       user_second
   #     end
   #   end
-  # end
-
-  # def user_first
-  #   @turn = :human
-  # end
-
-  # def user_second
-  #   @turn = :computer
   # end
 
   def change_turn
