@@ -1,6 +1,6 @@
 class Game
   SPACE = " "
-  attr_reader :board, :computer, :user
+  attr_reader :board
   
   def initialize(user_interface)
     @user_interface = user_interface
@@ -9,10 +9,7 @@ class Game
   def reset(players, board)
     @board = board
     @turn_counter = 0   
-    @player1 = players[0]
-    @player2 = players[1]
   end
-
 
   def print_welcome
     @user_interface.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
@@ -24,31 +21,30 @@ class Game
     @user_interface.print_out(@board.print_board)
   end
 
-  def take_a_turn
-    [@player1, @player2].each do |player|
+  def take_a_turn(players)
+    players.each do |player|
       move = player.player_turn
       @board.update_board(move[0],move[1])
+      print_board
     end
   end
-
-  #set expectations on the array that is being passed in
-  #and then check the state afterward
   
   def in_progress?
     @turn_counter < 5
   end
-  # def who_goes_first?
-  #   input = ""
-  #   until input == "first" || input == "second"
-  #     @user.print_out("Would you like to go first or second? Please enter 'first' or 'second'.")
-  #     input = @user.get_input
-  #     if input == "first"
-  #       user_first
-  #     elsif input == "second"
-  #       user_second
-  #     end
-  #   end
-  # end
+ 
+  def who_goes_first?(players)
+    input = ""
+    until input == "first" 
+      @user_interface.print_out("Would you like to go first or second? Please enter 'first' or 'second'.")
+      input = @user_interface.get_input
+      if input == "first"
+        return players
+      elsif input == "second"
+        return players.reverse
+      end
+    end
+  end
 
   def change_turn
     @turn_counter +=1

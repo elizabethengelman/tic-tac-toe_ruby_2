@@ -1,7 +1,7 @@
 require 'board'
 require 'game'
 require 'user_interface'
-require 'play'
+require 'game_loop'
 require 'computer'
 require 'user'
 

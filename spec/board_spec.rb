@@ -66,12 +66,11 @@ describe Board do
       @board.empty_in_line(@possible_winning_line).should eq 2
     end
 
-    it "should return nil if there is not empty space in the line" do
-      pending "Need to figure out how this method works still"
+    it "should not return an index if there is not empty space in the line" do
       @board.update_board(1,"X")
       @board.update_board(2,"X")
       @board.update_board(3,"O")
-      @board.empty_in_line(@possible_winning_line).should eq nil
+      @board.empty_in_line(@possible_winning_line).should == [1,2,3]
     end
   end
 

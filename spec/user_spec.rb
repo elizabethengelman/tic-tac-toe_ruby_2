@@ -21,27 +21,26 @@ class MockUserInterface
 	end
 end
 
-describe User do
+describe HumanUser do
 	before :each do
 		@board = Board.new
 		@mock_user_interface = MockUserInterface.new
-		@user = User.new(@board,@mock_user_interface)
+		@human_user = HumanUser.new(@board,@mock_user_interface)
 	end
 
 describe "#player_turn" do
-
 		it "prints out a message asking the user where to place their x" do
-			@user.player_turn
+			@human_user.player_turn
 			@mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
 		end
 
 		it "should tell the user if they've input an invalid move" do
-			@user.player_turn
+			@human_user.player_turn
 			@mock_user_interface.print_out_array[1].should eq "Sorry, that is not a valid move, please try again."
 		end
 
 		it "should return the user's position" do
-			@user.player_turn.should eq [2,"X"]
+			@human_user.player_turn.should eq [2,"X"]
 		end
 	end
 end

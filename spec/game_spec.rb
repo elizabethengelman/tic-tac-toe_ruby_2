@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-class MockUserInterface
+class GameMockUserInterface
 	attr_reader :print_out_array
+	attr_accessor :input_counter
 	def initialize
 		@print_out_array = []
 		@input_counter = 0
@@ -14,11 +15,11 @@ class MockUserInterface
 	def get_input
 		@input_counter += 1
 		if @input_counter == 1
-			1
+			"test"
 		elsif @input_counter == 2
-			2
+			"first"
 		elsif @input_counter == 3
-			9
+			"second"
 		end
 	end
 end
@@ -33,18 +34,11 @@ class MockPlay
 end
 
 class MockPlayer
-	attr_accessor :take_a_turn_counter
-
 	def initialize(board, user_interface)
 		@board = board
 		@user_interface = user_interface
-		take_a_turn_counter = 0
-	end
-	def player_turn
-		@take_a_turn_counter += 1 
 	end
 end
-
 
 class Game #need to get rid of this! it's changing the behavior of the class?
 	attr_accessor :turn_counter
@@ -52,17 +46,17 @@ end
 
 describe Game do
 	before :each do
-		@mock_user_interface = MockUserInterface.new
-		@game = Game.new(@mock_user_interface) #this is confusing that both game and play receive a user object
+		@mock_user_interface = GameMockUserInterface.new
+		@game = Game.new(@mock_user_interface)
 		@mock_play = MockPlay.new(@mock_user_interface, @game)
 		@board = @mock_play.board
 		@computer = Computer.new(@board, @user_interface)
-    @user = User.new(@board, @user_interface)
+    @human_user = HumanUser.new(@board, @user_interface)
 	end
 
 	describe "#print_welcome" do
 		before :each do
-			@game.reset([@user, @computer], @board)
+			@game.reset([@human_user, @computer], @board)
 			@game.print_welcome
 		end
 
@@ -96,7 +90,7 @@ describe Game do
 
 	describe "#print_board" do
 		it "prints out the current board" do
-			@game.reset([@user, @computer], @board)
+			@game.reset([@human_user, @computer], @board)
 			@game.board.update_board(1,"X")
 			@game.print_board
 			@mock_user_interface.print_out_array[0].should eq [
@@ -111,38 +105,27 @@ describe Game do
 
 	describe "#take_a_turn" do
 		before :each do
-			@game.reset([@user, @computer], @board)
+			@player1 = MockPlayer.new(@board, @mock_user_interface)
+			@player2 = MockPlayer.new(@board, @mock_user_interface)
+			@game.reset([@player1, @player2], @board)
 		end		
 
 		it "iterates through both players and runs player_turn on each" do			
-			# pending "HOW DO I TEST THIS????????"
-			@player1 = MockPlayer.new(@board, @mock_user_interface)
-			@player2 = MockPlayer.new(@board, @mock_user_interface)
-			@game.reset([@player1, @player1], @board)
 			@player1.should_receive(:player_turn).and_return([1, "X"])
 			@player2.should_receive(:player_turn).and_return([5, "O"])
-		
-			@game.take_a_turn
+			@game.take_a_turn([@player1, @player2])
 			@game.board.board.should == {1 => "X", 2 => " ", 3 => " ", 4 => " ", 5 => "O", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
-		end
-
-		it "updates the board with @user.player_turn" do
-		pending "HOW DO I TEST THIS??????"
-		end
-
-		it "updates the board with @computer.player_turn" do
-			pending "HOW DO I TEST THIS??????"
 		end
 	end
 
 	describe "#in_progress?" do
 		it "returns true if the turn_counter is less than 5" do
-			@game.reset([@user, @computer], @board)
+			@game.reset([@human_user, @computer], @board)
 			@game.in_progress?.should eq true
 		end
 
 		it "returns false if the turn_counter is greater than or equal to 5" do
-			@game.reset([@user, @computer], @board)
+			@game.reset([@human_user, @computer], @board)
 			5.times {@game.change_turn}
 			@game.in_progress?.should eq false
 		end
@@ -150,18 +133,18 @@ describe Game do
 
 	describe "#change_turn" do
 		before :each do 
-			@game.reset([@user, @computer], @board)
+			@game.reset([@human_user, @computer], @board)
 			@game.change_turn
 		end
 
 		it "should add 1 to the turn counter" do
-			@game.turn_counter.should eq 1 #how can i test this in a different way, without adding a turn_counter attr_reader?
+			@game.turn_counter.should eq 1 
 		end
 	end
 
 	describe "#check_for_winner" do
     before :each do
-      @game.reset([@user, @computer], @board)
+      @game.reset([@human_user, @computer], @board)
     end
 
     it "should print that the user has won" do
@@ -193,4 +176,41 @@ describe Game do
 			@game.turn_counter.should eq 6
 		end	
 	end
+
+	describe "#who_goes_first?" do
+		it "should print out to ask if the human user would like to go first or second" do
+			@game.who_goes_first?([@human_user,@computer])
+			@mock_user_interface.print_out_array[0].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
+		end
+
+		it "should get input from the human user" do
+			@game.who_goes_first?([@human_user,@computer])
+			@mock_user_interface.input_counter.should == 2
+		end
+
+		it "should continue asking the user, until they put 'first' or 'second'" do
+			@game.who_goes_first?([@human_user,@computer])
+			@mock_user_interface.print_out_array[1].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
+		end
+
+		it "should set the first player to human_user if the user wants to go first" do
+			@game.who_goes_first?([@human_user,@computer]).should == [@human_user, @computer]
+		end
+
+		it "should set the first player to computer if the user wants to go second" do
+			@mock_user_interface.input_counter = 2
+			@game.who_goes_first?([@human_user, @computer]).should == [@computer, @human_user]
+		end
+	end
 end
+
+
+
+
+
+
+
+
+
+
+

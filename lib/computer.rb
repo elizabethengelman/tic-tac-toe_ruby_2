@@ -6,7 +6,6 @@ class Computer
     @user_interface = user_interface
   end
 
-
   def player_turn
     # sleep(0.5)
     @user_interface.print_out("The computer is playing...")

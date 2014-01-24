@@ -1,4 +1,4 @@
-class User
+class HumanUser
 	def initialize(board, user_interface) 
 		@board = board
 		@user_interface = user_interface
