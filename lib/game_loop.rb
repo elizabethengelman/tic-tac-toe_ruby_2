@@ -24,7 +24,7 @@ class GameLoop
     @game.reset(players, board)
     @game.print_welcome
     current_player_index = @game.who_goes_first?
-    mark = @game.which_mark?
+    human_user.mark = @game.which_mark?
     while @game.in_progress?
 			current_player = players[current_player_index]
 	    @game.take_a_turn(current_player)
