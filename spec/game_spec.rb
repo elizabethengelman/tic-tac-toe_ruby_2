@@ -20,6 +20,8 @@ class GameMockUserInterface
 			"first"
 		elsif @input_counter == 3
 			"second"
+		elsif @input_counter == 4
+			"E"
 		end
 	end
 end
@@ -194,13 +196,25 @@ describe Game do
 			@mock_user_interface.print_out_array[1].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
 		end
 
-		it "should set the first player to human_user if the user wants to go first" do
+		it "should return the index of the human_user, 0, if the user wants to go first" do
 			@game.who_goes_first?.should == 0
 		end
 
-		it "should set the first player to computer if the user wants to go second" do
+		it "should return the index of the computer, 1, if the user wants to go second" do
 			@mock_user_interface.input_counter = 2
 			@game.who_goes_first?.should == 1
+		end
+	end
+
+	describe "which_mark?" do
+		it "should ask the player what mark they would like to use" do
+			@game.which_mark?
+			@mock_user_interface.print_out_array[0].should eq "Which mark would you like to play with? You can input any character."
+		end
+
+		it "should allow the user to input any character" do
+			@mock_user_interface.input_counter = 3
+			@game.which_mark?.should == "E"
 		end
 	end
 end

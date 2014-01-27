@@ -25,7 +25,6 @@ class Game
       move = player.player_turn
       @board.update_board(move[0],move[1])
       print_board
-    #maybe move this each loop into the game_loop class
   end
   
   def in_progress?
@@ -45,12 +44,17 @@ class Game
     end
   end
 
+  def which_mark?
+    @user_interface.print_out("Which mark would you like to play with? You can input any character.")
+    @user_interface.get_input
+  end
+
   def change_turn(current_player_index)
     @turn_counter +=1
     (current_player_index + 1) % 2
   end
 
-  def check_for_winner #is this a function of game, or the board?
+  def check_for_winner 
     @board.possible_wins.each do |line|
       if @board.times_in_line(line, "X") == 3
         human_user_wins
