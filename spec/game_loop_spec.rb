@@ -57,7 +57,7 @@ class MockGame
 		progress
 	end
 
-	def take_a_turn(players)
+	def take_a_turn(player)
 		@take_a_turn_counter += 1
 	end
 
@@ -65,7 +65,7 @@ class MockGame
 		@print_board_counter += 1
 	end
 
-	def change_turn
+	def change_turn(current_user_index)
 		@change_turn_counter += 1
 	end
 
@@ -73,7 +73,7 @@ class MockGame
 		@check_winner_counter += 1
 	end
 
-	def who_goes_first?(players)
+	def who_goes_first?
 		@who_goes_first_counter += 1
 	end
 end
@@ -128,10 +128,6 @@ describe GameLoop do
 
     it "should call the take_a_turn method each game" do
     	@mock_game.take_a_turn_counter.should eq 2
-    end
-
-    it "should call the print_board method each game" do
-    	@mock_game.print_board_counter.should eq 2
     end
 
     it "should call the change turn method" do

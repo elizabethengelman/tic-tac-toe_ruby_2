@@ -7,7 +7,6 @@ class Computer
   end
 
   def player_turn
-    # sleep(0.5)
     @user_interface.print_out("The computer is playing...")
     if @board.board[5] == SPACE
       position = 5
@@ -26,10 +25,6 @@ class Computer
   end
 
   def find_computer_move
-    #I had inteded to break this out into 3 methods, however I was not sure how best to accomplish
-    #this, since each method would need to return the position for the computer to win or block.
-    #This would kick it back into the find_computer_move method, which would also require a return.
-    #I am not sure if that would be easier to understand or not.
     @board.possible_wins.each do |line|
       if three_in_a_row_possible?(line)
         return @board.empty_in_line(line)

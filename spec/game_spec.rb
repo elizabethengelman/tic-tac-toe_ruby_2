@@ -111,6 +111,7 @@ describe Game do
 		end		
 
 		it "iterates through both players and runs player_turn on each" do			
+			pending
 			@player1.should_receive(:player_turn).and_return([1, "X"])
 			@player2.should_receive(:player_turn).and_return([5, "O"])
 			@game.take_a_turn([@player1, @player2])
@@ -119,14 +120,14 @@ describe Game do
 	end
 
 	describe "#in_progress?" do
-		it "returns true if the turn_counter is less than 5" do
+		it "returns true if the turn_counter is less than 10" do
 			@game.reset([@human_user, @computer], @board)
 			@game.in_progress?.should eq true
 		end
 
-		it "returns false if the turn_counter is greater than or equal to 5" do
+		it "returns false if the turn_counter is greater than or equal to 10" do
 			@game.reset([@human_user, @computer], @board)
-			5.times {@game.change_turn}
+			10.times {@game.change_turn(1)}
 			@game.in_progress?.should eq false
 		end
 	end
@@ -134,7 +135,7 @@ describe Game do
 	describe "#change_turn" do
 		before :each do 
 			@game.reset([@human_user, @computer], @board)
-			@game.change_turn
+			@game.change_turn(1)
 		end
 
 		it "should add 1 to the turn counter" do
@@ -147,24 +148,24 @@ describe Game do
       @game.reset([@human_user, @computer], @board)
     end
 
-    it "should print that the user has won" do
+    it "should print out that the human use won if there are 3 X's in a row" do
       @game.board.update_board(1,"X")
       @game.board.update_board(2,"X")
       @game.board.update_board(3,"X")
       @game.check_for_winner
-      @mock_user_interface.print_out_array[0].should eq "Oops, it looks like you win!  That wasn't supposed to happen :|"
+    	@mock_user_interface.print_out_array[0].should eq "Oops, it looks like you win!  That wasn't supposed to happen :|"
     end
 
-    it "should print that the computer has won" do
+    it "should print out that the computer has won if there are 3 O's in a row" do
       @game.board.update_board(1,"O")
       @game.board.update_board(2,"O")
       @game.board.update_board(3,"O")
-      @game.check_for_winner
-      @mock_user_interface.print_out_array[0].should eq "The computer wins!"
+    	@game.check_for_winner
+    	@mock_user_interface.print_out_array[0].should eq "The computer wins!"
     end
 
-    it "should print that they have tied" do
-      @game.turn_counter = 5
+    it "should print out that it is a tied game" do
+      @game.turn_counter = 9
       @game.check_for_winner
       @mock_user_interface.print_out_array[0].should eq "You've tied!"
     end
@@ -173,33 +174,33 @@ describe Game do
 	describe "#game_over" do
 		it "should end the game by setting the turn counter to 6" do
 			@game.game_over
-			@game.turn_counter.should eq 6
+			@game.turn_counter.should eq 10
 		end	
 	end
 
 	describe "#who_goes_first?" do
 		it "should print out to ask if the human user would like to go first or second" do
-			@game.who_goes_first?([@human_user,@computer])
+			@game.who_goes_first?
 			@mock_user_interface.print_out_array[0].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
 		end
 
 		it "should get input from the human user" do
-			@game.who_goes_first?([@human_user,@computer])
+			@game.who_goes_first?
 			@mock_user_interface.input_counter.should == 2
 		end
 
 		it "should continue asking the user, until they put 'first' or 'second'" do
-			@game.who_goes_first?([@human_user,@computer])
+			@game.who_goes_first?
 			@mock_user_interface.print_out_array[1].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
 		end
 
 		it "should set the first player to human_user if the user wants to go first" do
-			@game.who_goes_first?([@human_user,@computer]).should == [@human_user, @computer]
+			@game.who_goes_first?.should == 0
 		end
 
 		it "should set the first player to computer if the user wants to go second" do
 			@mock_user_interface.input_counter = 2
-			@game.who_goes_first?([@human_user, @computer]).should == [@computer, @human_user]
+			@game.who_goes_first?.should == 1
 		end
 	end
 end
