@@ -26,10 +26,22 @@ class FakeUserInterface #needed to changed the name of this from MockUserInterfa
 	end
 end
 
+class FakeHumanUser
+	attr_reader :choose_your_mark_counter
+	def initialize
+		@choose_your_mark_counter = 0
+	end
+
+	def choose_your_mark
+		@choose_your_mark_counter += 1
+	end
+	
+end
+
 class MockGame
 	attr_reader :reset_called, :print_welcome_called, :take_a_turn_counter, 
 							:print_board_counter, :change_turn_counter, :check_winner_counter,
-							:user, :computer, :who_goes_first_counter, :which_mark_counter
+							:user, :computer, :who_goes_first_counter
 	def initialize
 		@progress_counter = 0
 		@take_a_turn_counter = 0
@@ -37,7 +49,6 @@ class MockGame
 		@change_turn_counter = 0
 		@check_winner_counter = 0
 		@who_goes_first_counter = 0
-		@which_mark_counter = 0
 	end
 
 	def reset(players, board)
@@ -77,10 +88,6 @@ class MockGame
 	def who_goes_first?
 		@who_goes_first_counter += 1
 	end
-
-	def which_mark?
-		@which_mark_counter += 1
-	end
 end
 
 describe GameLoop do
@@ -88,6 +95,7 @@ describe GameLoop do
 		@mock_user_interface = FakeUserInterface.new
 		@mock_game = MockGame.new
 		@game_loop = GameLoop.new(@mock_user_interface, @mock_game)
+		@fake_human_user = FakeHumanUser.new
 	end
   
 	describe "#start_playing" do
@@ -99,7 +107,7 @@ describe GameLoop do
 
 		it "should print out a message asking if the user would like to play again" do
 			@game_loop.start_playing
-			@mock_user_interface.print_out_array[0].should eq "Game over! Would you like to start a new game?"
+			@mock_user_interface.print_out_array[1].should eq "Game over! Would you like to start a new game? Enter 'yes'"
 		end
 
 		it "should print out a goodbye message after the loop" do
@@ -147,8 +155,16 @@ describe GameLoop do
     	@mock_game.who_goes_first_counter.should eq 1
     end
 
-    it "should call the which_mark? method" do
-    	@mock_game.which_mark_counter.should eq 1
+    it "should call the choose_your_mark method" do
+    	pending
+    	# @fake_human_user.choose_your_mark_counter.should eq 1
+
     end
+
+    it "should call the assign_computer_mark method" do
+    	@game.should_receive(:assign_computer_mark)
+    	@game.play_game
+    end
+
 	end
 end

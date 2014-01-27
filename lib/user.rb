@@ -15,4 +15,9 @@ class HumanUser
     end
     [position, @mark]
   end
+
+  def choose_your_mark
+    @user_interface.print_out("Which mark would you like to play with? You can input any character.")
+    @mark = @user_interface.get_input
+  end
 end

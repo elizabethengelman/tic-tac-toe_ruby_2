@@ -202,18 +202,6 @@ describe Game do
 			@game.who_goes_first?.should == 1
 		end
 	end
-
-	describe "which_mark?" do
-		it "should ask the player what mark they would like to use" do
-			@game.which_mark?
-			@mock_user_interface.print_out_array[0].should eq "Which mark would you like to play with? You can input any character."
-		end
-
-		it "should allow the user to input any character" do
-			@mock_user_interface.input_counter = 3
-			@game.which_mark?.should == "E"
-		end
-	end
 end
 
 

@@ -1,6 +1,6 @@
 class Game
   SPACE = " "
-  attr_reader :board
+  attr_reader :board, :turn_counter
   
   def initialize(user_interface)
     @user_interface = user_interface
@@ -28,7 +28,7 @@ class Game
   end
   
   def in_progress?
-    @turn_counter < 10
+    @turn_counter < 9
   end
  
   def who_goes_first?
@@ -44,10 +44,10 @@ class Game
     end
   end
 
-  def which_mark?
-    @user_interface.print_out("Which mark would you like to play with? You can input any character.")
-    @user_interface.get_input
-  end
+  # def which_mark?
+  #   @user_interface.print_out("Which mark would you like to play with? You can input any character.")
+  #   @user_interface.get_input
+  # end
 
   def change_turn(current_player_index)
     @turn_counter +=1
