@@ -107,17 +107,14 @@ describe Game do
 
 	describe "#take_a_turn" do
 		before :each do
-			@player1 = MockPlayer.new(@board, @mock_user_interface)
-			@player2 = MockPlayer.new(@board, @mock_user_interface)
+			@player = MockPlayer.new(@board, @mock_user_interface)
 			@game.reset([@player1, @player2], @board)
 		end		
 
-		it "iterates through both players and runs player_turn on each" do			
-			pending
-			@player1.should_receive(:player_turn).and_return([1, "X"])
-			@player2.should_receive(:player_turn).and_return([5, "O"])
-			@game.take_a_turn([@player1, @player2])
-			@game.board.board.should == {1 => "X", 2 => " ", 3 => " ", 4 => " ", 5 => "O", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
+		it "calls player turn, and updates the board with the moves the player puts in" do			
+			@player.should_receive(:player_turn).and_return([1, "X"])
+			@game.take_a_turn(@player)
+			@game.board.board.should == {1 => "X", 2 => " ", 3 => " ", 4 => " ", 5 => " ", 6 => " ", 7 => " ", 8 => " ", 9 => " "}
 		end
 	end
 

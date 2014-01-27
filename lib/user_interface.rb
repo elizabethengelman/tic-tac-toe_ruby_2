@@ -1,6 +1,6 @@
 class UserInterface
-  def get_input
-  	gets.chomp
+  def get_input(user_input = gets.chomp)
+  	user_input
   end
 
   def print_out(output)

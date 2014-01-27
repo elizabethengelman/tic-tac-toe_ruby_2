@@ -6,9 +6,10 @@ describe UserInterface do
 	end
 
 	describe "#get_input" do
-		it "should get input from the user" do
-			pending "Not sure how to test gets.chomp"
-	  end
+    let(:user_input) { "first" }
+    it "should be 'first'" do
+    	@user_interface.get_input(user_input).should == "first"
+    end
 	end
 
 	describe "#print_out" do
