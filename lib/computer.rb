@@ -1,9 +1,10 @@
 class Computer
   SPACE = " "
   
-	def initialize(board, user_interface)
+	def initialize(board, user_interface, human_user)
 		@board = board
     @user_interface = user_interface
+    @human_user = human_user
   end
 
   def player_turn
@@ -21,7 +22,7 @@ class Computer
   end
 
   def block_opponent_possible?(line)
-    @board.times_in_line(line, "X") == 2 && @board.empty_in_line(line)
+    @board.times_in_line(line, @human_user.mark) == 2 && @board.empty_in_line(line)
   end
 
   def find_computer_move
@@ -40,10 +41,7 @@ class Computer
         return @board.empty_in_line(line) if @board.empty_in_line(line)
       end
     end
-    @board.board.each do |key, value| 
-      if value == SPACE 
-        return key
-      end
-    end
+    3
   end
+
 end

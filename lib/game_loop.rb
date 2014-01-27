@@ -18,8 +18,9 @@ class GameLoop
 
 	def play_game
     board = Board.new
-    computer = Computer.new(board, @user_interface)
     human_user = HumanUser.new(board, @user_interface)
+    computer = Computer.new(board, @user_interface, human_user)
+    
     players = [human_user, computer]
     @game.reset(players, board)
     @game.print_welcome
@@ -29,7 +30,7 @@ class GameLoop
 			current_player = players[current_player_index]
 	    @game.take_a_turn(current_player)
     	current_player_index = @game.change_turn(current_player_index)
-      @game.check_for_winner
+      @game.check_for_winner(human_user, computer)
     end
   end
 end

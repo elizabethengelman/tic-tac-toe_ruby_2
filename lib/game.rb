@@ -54,13 +54,13 @@ class Game
     (current_player_index + 1) % 2
   end
 
-  def check_for_winner 
+  def check_for_winner(human_user, computer) 
     @board.possible_wins.each do |line|
-      if @board.times_in_line(line, "X") == 3
+      if @board.times_in_line(line, human_user.mark) == 3
         human_user_wins
       elsif @board.times_in_line(line, "O") == 3
         computer_wins
-      elsif @turn_counter == 10
+      elsif @turn_counter == 9
         tie_game
       end
     end

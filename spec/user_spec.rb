@@ -31,7 +31,7 @@ describe HumanUser do
 describe "#player_turn" do
 		it "prints out a message asking the user where to place their x" do
 			@human_user.player_turn
-			@mock_user_interface.print_out_array[0].should eq "Where would you like to place your X?"
+			@mock_user_interface.print_out_array[0].should eq "Where would you like to place your mark?"
 		end
 
 		it "should tell the user if they've input an invalid move" do

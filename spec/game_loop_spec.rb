@@ -29,7 +29,7 @@ end
 class MockGame
 	attr_reader :reset_called, :print_welcome_called, :take_a_turn_counter, 
 							:print_board_counter, :change_turn_counter, :check_winner_counter,
-							:user, :computer, :who_goes_first_counter
+							:user, :computer, :who_goes_first_counter, :which_mark_counter
 	def initialize
 		@progress_counter = 0
 		@take_a_turn_counter = 0
@@ -37,6 +37,7 @@ class MockGame
 		@change_turn_counter = 0
 		@check_winner_counter = 0
 		@who_goes_first_counter = 0
+		@which_mark_counter = 0
 	end
 
 	def reset(players, board)
@@ -69,12 +70,16 @@ class MockGame
 		@change_turn_counter += 1
 	end
 
-	def check_for_winner
+	def check_for_winner(human_user, computer)
 		@check_winner_counter += 1
 	end
 
 	def who_goes_first?
 		@who_goes_first_counter += 1
+	end
+
+	def which_mark?
+		@which_mark_counter += 1
 	end
 end
 
@@ -140,6 +145,10 @@ describe GameLoop do
 
     it "should call the who_goes_first? method" do
     	@mock_game.who_goes_first_counter.should eq 1
+    end
+
+    it "should call the which_mark? method" do
+    	@mock_game.which_mark_counter.should eq 1
     end
 	end
 end
