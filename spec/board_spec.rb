@@ -54,7 +54,7 @@ describe Board do
 
   describe "#empty_in_line" do
     before :each do 
-      @possible_winning_line = @board.possible_wins[2]
+      @possible_winning_line = @board.possible_wins[0]
     end
 
     it "should return the index of the first empty space in the line" do

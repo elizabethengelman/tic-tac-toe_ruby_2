@@ -20,17 +20,17 @@ class GameLoop
     board = Board.new
     human_user = HumanUser.new(board, @user_interface)
     computer = Computer.new(board, @user_interface, human_user)
-    
     players = [human_user, computer]
     @game.reset(players, board)
     @game.print_welcome
     current_player_index = @game.who_goes_first?
     human_user.mark = @game.which_mark?
+    computer.assign_computer_mark
     while @game.in_progress?
 			current_player = players[current_player_index]
 	    @game.take_a_turn(current_player)
-    	current_player_index = @game.change_turn(current_player_index)
       @game.check_for_winner(human_user, computer)
+      current_player_index = @game.change_turn(current_player_index)
     end
   end
 end

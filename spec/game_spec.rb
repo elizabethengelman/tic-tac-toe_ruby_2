@@ -52,8 +52,8 @@ describe Game do
 		@game = Game.new(@mock_user_interface)
 		@mock_play = MockPlay.new(@mock_user_interface, @game)
 		@board = @mock_play.board
-		@computer = Computer.new(@board, @user_interface)
     @human_user = HumanUser.new(@board, @user_interface)
+    @computer = Computer.new(@board, @user_interface, @human_user)
 	end
 
 	describe "#print_welcome" do

@@ -5,6 +5,13 @@ class Computer
 		@board = board
     @user_interface = user_interface
     @human_user = human_user
+    @computer_mark = "O"
+  end
+
+  def assign_computer_mark
+    if @human_user.mark == "O"
+      @computer_mark = "X"
+    end
   end
 
   def player_turn
@@ -14,15 +21,19 @@ class Computer
     else
       position = find_computer_move
     end
-    [position, "O"]
+    [position, @computer_mark]
   end
 
   def three_in_a_row_possible?(line)
-    @board.times_in_line(line, "O") == 2 && @board.empty_in_line(line)
+    @board.times_in_line(line, @computer_mark) == 2 && @board.empty_in_line(line)
   end
 
   def block_opponent_possible?(line)
     @board.times_in_line(line, @human_user.mark) == 2 && @board.empty_in_line(line)
+  end
+
+  def start_building_a_win?(line)
+    @board.times_in_line(line, @computer_mark) == 1 && @board.empty_in_line(line)
   end
 
   def find_computer_move
@@ -37,11 +48,10 @@ class Computer
       end 
     end
     @board.possible_wins.each do |line|
-      if @board.times_in_line(line, "O") == 1
-        return @board.empty_in_line(line) if @board.empty_in_line(line)
+      if start_building_a_win?(line)
+        return @board.empty_in_line(line)
       end
     end
     3
   end
-
 end
