@@ -17,25 +17,29 @@ class GameLoop
 	end
 
 	def play_game
-    board = Board.new
-    human_user = HumanUser.new(board, @user_interface)
-    computer = Computer.new(board, @user_interface, human_user)
-    players = [human_user, computer]
-    @game.reset(players, board)
+    create_new_game_pieces
+    @game.reset(@players, @board)
     @game.print_welcome
     current_player_index = @game.who_goes_first?
-    human_user.choose_your_mark
-    computer.assign_computer_mark
+    assign_player_marks
     while @game.in_progress?
-			current_player = players[current_player_index]
+			current_player = @players[current_player_index]
 	    @game.take_a_turn(current_player)
       current_player_index = @game.change_turn(current_player_index)
-      @game.check_for_winner(human_user, computer)
+      @game.check_for_winner(@human_user, @computer)
     end
   end
 
-  # def assign_player_marks
-  # 	@human_user.choose_your_mark
-  # 	@computer.assign_computer_mark
-  # end
+  def create_new_game_pieces
+  	@board = Board.new
+    @human_user = HumanUser.new(@board, @user_interface)
+    @computer = Computer.new(@board, @user_interface, @human_user)
+    @players = [@human_user, @computer]
+  end
+
+  def assign_player_marks
+  	@human_user.choose_your_mark
+    @computer.assign_computer_mark
+  end
+
 end

@@ -22,9 +22,9 @@ class Game
   end
 
   def take_a_turn(player) 
-      move = player.player_turn
-      @board.update_board(move[0],move[1])
-      print_board #this should not be a part of take_a_turn??
+    move = player.player_turn
+    @board.update_board(move[0],move[1])
+    print_board #this should not be a part of take_a_turn??
   end
   
   def in_progress?

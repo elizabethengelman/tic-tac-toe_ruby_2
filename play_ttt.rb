@@ -8,5 +8,5 @@ require_relative 'lib/user'
 
 user_interface = UserInterface.new
 game = Game.new(user_interface)
-play_the_game = GameLoop.new(user_interface, game)
-play_the_game.start_playing
+new_game_loop = GameLoop.new(user_interface, game)
+new_game_loop.start_playing

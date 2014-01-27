@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-class FakeUserInterface #needed to changed the name of this from MockUserInterface because
-	#i also use a MockUserInterface in the Game tests, which behaves differently than this one needs to
+class FakeUserInterface 
 	attr_reader :print_out_called, :print_out_counter, :print_out_array, :get_input_counter
 	attr_accessor :input
 	def initialize
@@ -35,7 +34,6 @@ class FakeHumanUser
 	def choose_your_mark
 		@choose_your_mark_counter += 1
 	end
-	
 end
 
 class MockGame
@@ -131,6 +129,10 @@ describe GameLoop do
 			@game_loop.play_game
 		end
 
+		it "should call the create_a_new_game_pieces method" do
+			pending
+		end
+
     it "should call the reset method" do
     	@mock_game.reset_called.should equal true
     end
@@ -139,7 +141,19 @@ describe GameLoop do
     	@mock_game.print_welcome_called.should equal true
     end
 
-    it "should call the take_a_turn method each game" do
+    it "should call the who_goes_first? method" do
+    	@mock_game.who_goes_first_counter.should eq 1
+    end
+
+    it "should call the assign_computer_marks method" do
+    	pending
+    end
+
+    it "should continue until the game is no longer in progress" do
+    	pending
+    end
+
+    it "should call the take_a_turn method" do
     	@mock_game.take_a_turn_counter.should eq 2
     end
 
@@ -150,21 +164,17 @@ describe GameLoop do
     it "should call the check_for_winner method" do
     	@mock_game.check_winner_counter.should eq 2
     end
+  end
+  
+  describe "#create_a_new_game_pieces" do
+  	it "should ...." do
+  	  pending
+  	end
+  end
 
-    it "should call the who_goes_first? method" do
-    	@mock_game.who_goes_first_counter.should eq 1
-    end
-
-    it "should call the choose_your_mark method" do
-    	pending
-    	# @fake_human_user.choose_your_mark_counter.should eq 1
-
-    end
-
-    it "should call the assign_computer_mark method" do
-    	@game.should_receive(:assign_computer_mark)
-    	@game.play_game
-    end
-
-	end
+  describe "#assign_player_marks" do
+  	it "should ...." do
+  		pending
+  	end
+  end
 end
