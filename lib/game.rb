@@ -12,11 +12,13 @@ class Game
   end
 
   def print_welcome
-    @user_interface.print_out("Welcome to tic-tac-toe! The board is numbered as follows.")
-    @user_interface.print_out(@board.print_example_board)
-    print_board
+    @user_interface.print_out("Welcome to tic-tac-toe!")
   end
 
+  def print_example_board
+    @user_interface.print_out("The board is numbered as follows.")
+    @user_interface.print_out(@board.print_example_board)
+  end
   def print_board
     @user_interface.print_out(@board.print_board)
   end

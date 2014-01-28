@@ -64,6 +64,9 @@ class MockGame
 		@print_board_counter += 1
 	end
 
+	def print_example_board
+	end
+
 	def change_turn
 		@change_turn_counter += 1
 	end

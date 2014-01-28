@@ -55,36 +55,10 @@ describe Game do
 	end
 
 	describe "#print_welcome" do
-		before :each do
+		it "prints out a welcome message" do
 			@game.reset([@human_user, @computer], @board)
 			@game.print_welcome
-		end
-
-		it "prints out a welcome message" do
-			@mock_user_interface.print_out_array[0].should eq "Welcome to tic-tac-toe! The board is numbered as follows."
-		end
-
-		it "prints out an example board" do
-			@mock_user_interface.print_out_array[1].should eq [
-      "1 | 2 | 3",
-      "_________",
-      "4 | 5 | 6",
-      "_________",
-      "7 | 8 | 9",
-      "",
-      "---------------",
-      ""
-      ]
-		end
-
-		it "prints out the empty board" do
-			@mock_user_interface.print_out_array[2].should eq [
-      "  |   |  ",
-      "_________",
-      "  |   |  ",
-      "_________",
-      "  |   |  "
-  	  ]
+			@mock_user_interface.print_out_array[0].should eq "Welcome to tic-tac-toe!"
 		end
 	end
 
@@ -101,6 +75,22 @@ describe Game do
       "  |   |  "
   	  ]
 		end
+	end
+
+	describe "#print_example_board" do
+		it "prints out and example board" do
+		@game.reset([@human_user, @computer], @board)
+		@game.print_example_board
+		@mock_user_interface.print_out_array[1].should eq [
+  		"1 | 2 | 3",
+  		"_________",
+  		"4 | 5 | 6",
+  		"_________",
+  		"7 | 8 | 9",
+  		"",
+  		""
+  		]
+  	end
 	end
 
 	describe "#take_a_turn" do

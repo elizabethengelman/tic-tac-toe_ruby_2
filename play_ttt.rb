@@ -3,7 +3,7 @@ require_relative 'lib/board'
 require_relative 'lib/user_interface'
 require_relative 'lib/game_loop'
 require_relative 'lib/computer'
-require_relative 'lib/user'
+require_relative 'lib/human_user'
 
 
 user_interface = UserInterface.new
