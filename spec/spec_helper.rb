@@ -3,5 +3,5 @@ require 'game'
 require 'user_interface'
 require 'game_loop'
 require 'computer'
-require 'user'
+require 'human_user'
 

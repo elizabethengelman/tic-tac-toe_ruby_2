@@ -20,8 +20,6 @@ class GameMockUserInterface
 			"first"
 		elsif @input_counter == 3
 			"second"
-		elsif @input_counter == 4
-			"E"
 		end
 	end
 end
@@ -131,6 +129,32 @@ describe Game do
 		end
 	end
 
+	describe "#who_goes_first?" do
+		it "should print out to ask if the human user would like to go first or second" do
+			@game.who_goes_first?
+			@mock_user_interface.print_out_array[0].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
+		end
+
+		it "should get input from the human user" do
+			@game.who_goes_first?
+			@mock_user_interface.input_counter.should == 2
+		end
+
+		it "should continue asking the user, until they put 'first' or 'second'" do
+			@game.who_goes_first?
+			@mock_user_interface.print_out_array[1].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
+		end
+
+		it "should return the index of the human_user, 0, if the user wants to go first" do
+			@game.who_goes_first?.should == 0
+		end
+
+		it "should return the index of the computer, 1, if the user wants to go second" do
+			@mock_user_interface.input_counter = 2
+			@game.who_goes_first?.should == 1
+		end
+	end
+
 	describe "#change_turn" do
 		before :each do 
 			@game.reset([@human_user, @computer], @board)
@@ -175,32 +199,6 @@ describe Game do
 			@game.game_over
 			@game.turn_counter.should eq 10
 		end	
-	end
-
-	describe "#who_goes_first?" do
-		it "should print out to ask if the human user would like to go first or second" do
-			@game.who_goes_first?
-			@mock_user_interface.print_out_array[0].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
-		end
-
-		it "should get input from the human user" do
-			@game.who_goes_first?
-			@mock_user_interface.input_counter.should == 2
-		end
-
-		it "should continue asking the user, until they put 'first' or 'second'" do
-			@game.who_goes_first?
-			@mock_user_interface.print_out_array[1].should eq "Would you like to go first or second? Please enter 'first' or 'second'."
-		end
-
-		it "should return the index of the human_user, 0, if the user wants to go first" do
-			@game.who_goes_first?.should == 0
-		end
-
-		it "should return the index of the computer, 1, if the user wants to go second" do
-			@mock_user_interface.input_counter = 2
-			@game.who_goes_first?.should == 1
-		end
 	end
 end
 
