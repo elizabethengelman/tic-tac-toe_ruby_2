@@ -25,21 +25,10 @@ class FakeUserInterface
 	end
 end
 
-class FakeHumanUser
-	attr_reader :choose_your_mark_counter
-	def initialize
-		@choose_your_mark_counter = 0
-	end
-
-	def choose_your_mark
-		@choose_your_mark_counter += 1
-	end
-end
-
 class MockGame
 	attr_reader :reset_called, :print_welcome_called, :take_a_turn_counter, 
 							:print_board_counter, :change_turn_counter, :check_winner_counter,
-							:user, :computer, :who_goes_first_counter
+							:user, :computer, :who_goes_first_counter, :progress_counter
 	def initialize
 		@progress_counter = 0
 		@take_a_turn_counter = 0
@@ -59,12 +48,12 @@ class MockGame
 
 	def in_progress?
 		if @progress_counter >= 2
-			progress = false
+			in_progress = false
 		else
-			progress = true
+			in_progress = true
 		end
 		@progress_counter += 1
-		progress
+		in_progress
 	end
 
 	def take_a_turn(player)
@@ -75,7 +64,7 @@ class MockGame
 		@print_board_counter += 1
 	end
 
-	def change_turn(current_user_index)
+	def change_turn
 		@change_turn_counter += 1
 	end
 
@@ -93,7 +82,6 @@ describe GameLoop do
 		@mock_user_interface = FakeUserInterface.new
 		@mock_game = MockGame.new
 		@game_loop = GameLoop.new(@mock_user_interface, @mock_game)
-		@fake_human_user = FakeHumanUser.new
 	end
   
 	describe "#start_playing" do
@@ -129,8 +117,9 @@ describe GameLoop do
 			@game_loop.play_game
 		end
 
-		it "should call the create_a_new_game_pieces method" do
-			pending
+		it "should call the create_new_game_pieces method" do
+			@game_loop.should_receive(:create_new_game_pieces)
+			@game_loop.play_game
 		end
 
     it "should call the reset method" do
@@ -145,36 +134,25 @@ describe GameLoop do
     	@mock_game.who_goes_first_counter.should eq 1
     end
 
-    it "should call the assign_computer_marks method" do
-    	pending
+    it "should call the assign_player_marks method" do
+    	@game_loop.should_receive(:assign_player_marks)
+    	@game_loop.play_game
     end
 
-    it "should continue until the game is no longer in progress" do
-    	pending
+    it "should loop through a game, while the game is still in progress" do
+    	@mock_game.progress_counter.should == 3
     end
 
-    it "should call the take_a_turn method" do
-    	@mock_game.take_a_turn_counter.should eq 2
+    it "calls the take_a_turn method 2 times" do
+    	@mock_game.take_a_turn_counter.should == 2
     end
 
-    it "should call the change turn method" do
-    	@mock_game.change_turn_counter.should eq 2
+    it "calls the change_turn method 2 times" do 
+    	@mock_game.change_turn_counter.should == 2
     end
 
-    it "should call the check_for_winner method" do
-    	@mock_game.check_winner_counter.should eq 2
+    it "calls the check_for_winner method 2 times" do
+    	@mock_game.check_winner_counter.should == 2
     end
-  end
-  
-  describe "#create_a_new_game_pieces" do
-  	it "should ...." do
-  	  pending
-  	end
-  end
-
-  describe "#assign_player_marks" do
-  	it "should ...." do
-  		pending
-  	end
   end
 end

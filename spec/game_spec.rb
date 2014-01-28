@@ -126,7 +126,7 @@ describe Game do
 
 		it "returns false if the turn_counter is greater than or equal to 10" do
 			@game.reset([@human_user, @computer], @board)
-			10.times {@game.change_turn(1)}
+			10.times {@game.change_turn}
 			@game.in_progress?.should eq false
 		end
 	end
@@ -134,7 +134,7 @@ describe Game do
 	describe "#change_turn" do
 		before :each do 
 			@game.reset([@human_user, @computer], @board)
-			@game.change_turn(1)
+			@game.change_turn
 		end
 
 		it "should add 1 to the turn counter" do

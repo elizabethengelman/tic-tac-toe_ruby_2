@@ -25,7 +25,8 @@ class GameLoop
     while @game.in_progress?
 			current_player = @players[current_player_index]
 	    @game.take_a_turn(current_player)
-      current_player_index = @game.change_turn(current_player_index)
+      current_player_index = (current_player_index + 1) % 2
+      @game.change_turn
       @game.check_for_winner(@human_user, @computer)
     end
   end
@@ -41,5 +42,4 @@ class GameLoop
   	@human_user.choose_your_mark
     @computer.assign_computer_mark
   end
-
 end

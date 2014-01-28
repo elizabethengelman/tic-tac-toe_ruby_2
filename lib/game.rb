@@ -44,14 +44,8 @@ class Game
     end
   end
 
-  # def which_mark?
-  #   @user_interface.print_out("Which mark would you like to play with? You can input any character.")
-  #   @user_interface.get_input
-  # end
-
-  def change_turn(current_player_index)
+  def change_turn
     @turn_counter +=1
-    (current_player_index + 1) % 2
   end
 
   def check_for_winner(human_user, computer) 
