@@ -1,6 +1,6 @@
 class HumanUser
   attr_accessor :mark
-	def initialize(board, user_interface) 
+	def initialize(board, user_interface)
 		@board = board
 		@user_interface = user_interface
     @mark = "X"

@@ -1,11 +1,11 @@
 class GameLoop
-	
+
 	def initialize(user_interface, game)
 		@user_interface = user_interface
 		@game = game
 		@current_player = 0
 	end
-  
+
 	def start_playing
 	  response = "yes"
 	  until response != "yes"

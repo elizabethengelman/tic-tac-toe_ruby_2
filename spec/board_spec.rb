@@ -35,7 +35,7 @@ describe Board do
     it "should update the board at the position given, with the mark given" do
       @board.update_board(1,"X")
       @board.board[1].should eq "X"
-    end 
+    end
   end
 
   describe "#times_in_line" do
@@ -52,7 +52,7 @@ describe Board do
 
 
   describe "#empty_in_line" do
-    before :each do 
+    before :each do
       @possible_winning_line = @board.possible_wins[0]
     end
 
@@ -73,7 +73,7 @@ describe Board do
     end
   end
 
-  describe "#valid_move?" do 
+  describe "#valid_move?" do
     it "should return true if the space is open" do
       @board.valid_move?(1).should equal true
     end

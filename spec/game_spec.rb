@@ -188,7 +188,7 @@ describe Game do
 		it "should end the game by setting the turn counter to 6" do
 			@game.game_over
 			@game.turn_counter.should eq 10
-		end	
+		end
 	end
 end
 

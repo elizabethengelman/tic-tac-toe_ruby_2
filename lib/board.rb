@@ -3,19 +3,19 @@ class Board
   SPACE = " "
 	attr_reader :board #is this necessary?
 	attr_reader :possible_wins
-  
+
 	def initialize
 		@board = {1 => SPACE, 2 => SPACE, 3 => SPACE, 4 => SPACE, 5 => SPACE, 6 => SPACE, 7 => SPACE, 8 => SPACE, 9 => SPACE} 
-		@possible_wins = [ [1, 2, 3], 
-                       [4, 5, 6], 
-                       [7, 8, 9], 
+		@possible_wins = [ [1, 2, 3],
+                       [4, 5, 6],
+                       [7, 8, 9],
                        [1, 4, 7],
                        [2, 5, 8],
                        [3, 6, 9],
                        [1, 5, 9],
-                       [3, 5, 7] 
-                     ] 
-  end	
+                       [3, 5, 7]
+                     ]
+  end
 
   def print_board
     [
@@ -51,7 +51,7 @@ class Board
         return 0
       end
     end
-    times  
+    times
   end
 
   def empty_in_line(poss_winning_line)

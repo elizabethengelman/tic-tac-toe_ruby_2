@@ -1,6 +1,6 @@
 class Computer
   SPACE = " "
-  
+
 	def initialize(board, user_interface, human_user)
 		@board = board
     @user_interface = user_interface
@@ -45,7 +45,7 @@ class Computer
     @board.possible_wins.each do |line|
       if block_opponent_possible?(line)
         return @board.empty_in_line(line)
-      end 
+      end
     end
     @board.possible_wins.each do |line|
       if start_building_a_win?(line)

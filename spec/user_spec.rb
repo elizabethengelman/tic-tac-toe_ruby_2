@@ -6,7 +6,7 @@ class MockUserInterface
 		@print_out_array = []
 		@input_counter = 0
 	end
-	
+
 	def print_out(output)
 		@print_out_array << output
 	end

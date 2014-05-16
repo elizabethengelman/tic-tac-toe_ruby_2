@@ -6,7 +6,7 @@ class MockUserInterface
 		@print_out_array = []
 		@input_counter = 0
 	end
-	
+
 	def print_out(output)
 		@print_out_array << output
 	end
@@ -46,7 +46,7 @@ describe Computer do
 			@board.update_board(5,"X")
 			@computer.should receive(:find_computer_move)
 			@computer.player_turn
-		end	
+		end
 	end
 
 	describe "#find_computer_move" do
@@ -71,13 +71,13 @@ describe Computer do
 		it "if no other moves avaible, it should return 3" do
 			@board.update_board(1, "X")
 			@computer.find_computer_move.should eq 3
-		end	
+		end
 	end
 
 	describe "#assign_computer_mark" do
 		it "should return X if the human has already chosen to use 'O'" do 
 			@mock_human_user.mark = "O"
 			@computer.assign_computer_mark.should == "X"
-		end	
+		end
 	end
-end	
+end

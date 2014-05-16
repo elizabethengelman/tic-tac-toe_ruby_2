@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class FakeUserInterface 
+class FakeUserInterface
 	attr_reader :print_out_called, :print_out_counter, :print_out_array, :get_input_counter
 	attr_accessor :input
 	def initialize
@@ -86,7 +86,7 @@ describe GameLoop do
 		@mock_game = MockGame.new
 		@game_loop = GameLoop.new(@mock_user_interface, @mock_game)
 	end
-  
+
 	describe "#start_playing" do
 
     it "should call the play_game method" do
@@ -106,7 +106,7 @@ describe GameLoop do
 
 		it "should call the print_out method 3 times" do
 			@game_loop.start_playing
-			@mock_user_interface.print_out_counter.should eq 3 
+			@mock_user_interface.print_out_counter.should eq 3
 		end
 
 		it "should call the get_input method 2 times" do
@@ -116,7 +116,7 @@ describe GameLoop do
 	end
 
 	describe "#play_game" do
-		before :each do 
+		before :each do
 			@game_loop.play_game
 		end
 
@@ -150,7 +150,7 @@ describe GameLoop do
     	@mock_game.take_a_turn_counter.should == 2
     end
 
-    it "calls the change_turn method 2 times" do 
+    it "calls the change_turn method 2 times" do
     	@mock_game.change_turn_counter.should == 2
     end
 
