@@ -14,7 +14,7 @@ class MockUserInterface
 	def get_input
 		@input_counter += 1
 		if @input_counter == 1
-			10
+			"E"
 		else
 			2
 		end
