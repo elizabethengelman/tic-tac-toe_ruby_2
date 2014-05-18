@@ -65,4 +65,14 @@ class Board
   def valid_move?(index)
     @board[index] == SPACE
   end
+
+  def get_available_moves()
+   available_moves = []
+    @board.each do |key, value|
+      if value == SPACE
+        available_moves << key
+      end
+    end
+    available_moves
+  end
 end

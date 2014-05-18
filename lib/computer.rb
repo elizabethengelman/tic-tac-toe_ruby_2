@@ -54,4 +54,26 @@ class Computer
     end
     3
   end
+
+  def who_wins?
+    result = nil
+    @board.possible_wins.each do |line|
+      if @board.times_in_line(line, @human_user.mark) == 3
+        result = @human_user.mark
+      elsif @board.times_in_line(line, @computer_mark) == 3
+        result = @computer_mark
+      end
+    end
+    result
+  end
+
+  def get_score(board, player_mark)
+    if who_wins? ==  player_mark
+      1
+    elsif who_wins? != player_mark && who_wins? != nil
+     -1
+    else
+      0
+    end
+  end
 end

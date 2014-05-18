@@ -87,4 +87,13 @@ describe Board do
       @board.valid_move?(10).should equal false
     end
   end
+
+  describe "#available_moves" do
+    it "returns an array with the available moves" do
+      @board.update_board(1, "X")
+      @board.update_board(2, "X")
+      @board.update_board(3, "X")
+      @board.get_available_moves.should == [4, 5, 6, 7, 8, 9]
+    end
+  end
 end
